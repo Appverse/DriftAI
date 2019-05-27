@@ -12,26 +12,14 @@ from optapp.result_report.metrics import *
 from optapp.run import RunGenerator
 from optapp.utils import import_from, to_camel_case
 
-str_to_metric_fn = {
-    'recall': recall,
-    'precision': precision,
-    'f1': f1,
-    'mae': mae,
-    'mse': mse,
-    'rmse': rmse,
-    'multiclass_recall': multiclass_recall,
-    'multiclass_precision': multiclass_precision,
-    'multiclass_f1': multiclass_f1
-}
-
 @click.group()
 def main():
     """
     Simple CLI for OptAPP
-    """
-    pass
+    """    
+    sys.path.append(str(Path('.').absolute()))
 
-
+    
 def _is_running_in_project():
     return Path("optapp.db").exists()
 
@@ -62,7 +50,6 @@ def new(project_name):
 @click.option('--parsing-pattern', 
                help='Pattern to read the files inside the directory')
 @click.option('--datatype', '-d',
-                type=click.Choice(["img"]),
                 default="img",
                 help="Data type of files inside the directory")
 def add(item, path, heading, label, parsing_pattern, datatype):
@@ -76,7 +63,7 @@ def add(item, path, heading, label, parsing_pattern, datatype):
             print("You must provide a path with -p or --path option")
             click.Abort()
             return
-
+        
         datasource_params = dict()
         if parsing_pattern:
             datasource_params['path_pattern'] = parsing_pattern

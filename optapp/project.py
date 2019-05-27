@@ -85,6 +85,7 @@ class Project(object):
         db.insert(self.get_info())
         db.close()
 
+
     @classmethod
     def load(cls):
         """

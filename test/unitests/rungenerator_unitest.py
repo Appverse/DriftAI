@@ -7,7 +7,6 @@ from test import testenv
 from optapp.run import ParameterGrid, RunGenerator
 from optapp import Approach, Project, set_project_path
 from optapp.data import Dataset, SubDataset
-from optapp.db import DatabaseInjector
 from optapp.utils import import_from
 
 class RunGeneratorTest(unittest.TestCase):
@@ -19,7 +18,8 @@ class RunGeneratorTest(unittest.TestCase):
 
         self.p = Project(path=testenv.TEST_PATH, name=testenv.MOCK_PROJECT_NAME)
         
-        self.ds = Dataset.read_file(path=testenv.MOCK_DATASET)
+        self.ds = Dataset.read_file(path=testenv.MOCK_DATASET, 
+                                    first_line_heading=False)
         self.ds.save()
 
         self.sbds = SubDataset(self.ds, method="k_fold", by=5)

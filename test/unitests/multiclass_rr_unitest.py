@@ -4,7 +4,6 @@ import re
 from pathlib import Path
 
 from optapp.data import Dataset, SubDataset
-from optapp.db import DatabaseInjector
 from optapp.run import Run, RunGenerator
 from optapp.result_report import ResultReport, multiclass_recall, multiclass_precision, multiclass_f1
 from optapp import Approach, Project, set_project_path

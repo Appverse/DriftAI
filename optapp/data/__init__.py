@@ -1,8 +1,9 @@
 from .dataset import Dataset, SubDataset
-from .datasource import Datasource, FileDatasource, ImageDatasource
+from .datasource import Datasource, FileDatasource, DirectoryDatasource, ImageDatasource
 
 
 __all__ = [
     "Dataset", "SubDataset", 
-    "Datasource", "FileDatasource", "ImageDatasource"
+    "Datasource", 
+    "DirectoryDatasource", "FileDatasource", "ImageDatasource"
 ]

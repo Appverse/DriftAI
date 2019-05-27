@@ -4,12 +4,10 @@ from pathlib import Path
 
 sys.path.append(r"C:\cygwin64\home\fcgr\code\optapp")
 
-from dependency_injector import containers, providers
-
 from optapp.data.dataset import Dataset
 from optapp.project import Project
 from optapp.approach import Approach
-from optapp.db import Database, DatabaseInjector
+from optapp import set_project_path
 
 ds = Dataset.from_dir(r"C:\cygwin64\home\fcgr\code\optapp\examples\mnst_digit_classification_old\data")
 
@@ -20,13 +18,10 @@ if Path("{}\{}".format(proj_path, proj_name)).exists():
     shutil.rmtree(str(Path("{}\{}".format(proj_path, proj_name)).absolute()))
 
 p = Project(name="a", path=r"C:\cygwin64\home\fcgr\code\optapp\test\my_tests")
+set_project_path(p.path)
+
 
 info = ds.get_info()
-
-class MockDBInjector(containers.DeclarativeContainer):
-    db = providers.Singleton(Database, project_path=p.path)
-
-DatabaseInjector.override(MockDBInjector)
 ds.save()
 
 sbs = ds.generate_subdataset(method="k_fold", by=5)

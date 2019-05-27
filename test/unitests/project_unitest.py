@@ -4,12 +4,11 @@ import shutil
 import re
 import warnings
 
-from optapp.db import DatabaseInjector
 from optapp.data import Dataset, SubDataset
 from optapp.run import RunGenerator
 from optapp import Approach, Project, set_project_path
 from optapp.utils import import_from
-
+from optapp import set_project_path
 from optapp.exceptions import OptAppProjectNameExistsException
 
 from test import testenv
@@ -58,10 +57,8 @@ class ProjectTest(unittest.TestCase):
         -------
             - The project path is created
         """
-        
-        DatabaseInjector.override(testenv.IdentityDBInjector)
-
         p = Project(path=self.path_to_test_dir)
+        set_project_path(p.path)
         path_to_noname_project = Path(self.path_to_test_dir, self.project_default_name)
         self.assertEqual(p.path, str(path_to_noname_project))
 
@@ -75,10 +72,10 @@ class ProjectTest(unittest.TestCase):
             - The first project path is created using the default name when no name is provided
             - The second project generates a new default name
         """
-        DatabaseInjector.override(testenv.IdentityDBInjector)
 
         p1 = Project(path=self.path_to_test_dir)
         p2 = Project(path=self.path_to_test_dir)
+        set_project_path(p1.path)
 
         path_to_noname_project1 = Path(self.path_to_test_dir, self.project_default_name)
         path_to_noname_project2 = Path(self.path_to_test_dir, "{}_{}".format(self.project_default_name, 1))
@@ -164,7 +161,8 @@ class ProjectTest(unittest.TestCase):
     def test_get_latest_subdataset(self):
         p = self.test_load_project()
 
-        ds = Dataset.read_file(path=testenv.MOCK_DATASET)
+        ds = Dataset.read_file(path=testenv.MOCK_DATASET, 
+                               first_line_heading=False)
         ds.save()
 
         method = "k_fold"

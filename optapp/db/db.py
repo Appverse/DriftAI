@@ -3,12 +3,11 @@ from abc import ABC, abstractproperty
 import functools
 
 from tinydb import TinyDB, where
-from dependency_injector import containers, providers
 
 from .persistent import Persistent
 
 class Database(object):
-
+    
     def __init__(self, project_path):
         self.db = TinyDB(str(Path(project_path, "optapp.db")))
 
@@ -19,7 +18,7 @@ class Database(object):
 class BaseCollection(ABC):
 
     def __init__(self, **kwargs):
-        self.collection = kwargs["db"].db.table(self.collection_name)
+        self.collection = kwargs["db"].table(self.collection_name)
 
     def get(self, id_):
         """
@@ -124,7 +123,7 @@ class DatasetCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp.data.dataset import Dataset
+        from optapp.data import Dataset
         return Dataset
 
 
@@ -136,7 +135,7 @@ class SubDatasetCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp.data.dataset import SubDataset
+        from optapp.data import SubDataset
         return SubDataset
 
 class RunsCollection(BaseCollection):
@@ -192,6 +191,43 @@ def update_collection_item(collection, item):
                 return
     return transform
 
+# TODO: Global config
+_global_config = {
+    'db': None,
+    'project_path': '.'
+}
+
+class DatabaseInjector(object):
+
+    @staticmethod
+    def db():
+        db = _global_config.get('db')
+        if not db:
+            _global_config['db'] = Database(_global_config.get('project_path'))
+        return  _global_config['db']
+    
+    @staticmethod
+    def reset(): 
+        db = _global_config.get('db')
+        if db:
+            db.close()
+            _global_config['db'] = None
+    
+class Collections(object):
+
+    def approaches():
+        return ApproachCollection(db=DatabaseInjector.db())
+
+    def datasets():
+        return DatasetCollection(db=DatabaseInjector.db())
+    
+    def subdatasets():
+        return SubDatasetCollection(db=DatabaseInjector.db())
+
+    def runs(approach_id):
+        return RunsCollection(approach_id, db=DatabaseInjector.db())
+
+        
 def set_project_path(path):
     """
     Set the project which you are working on. 
@@ -202,31 +238,4 @@ def set_project_path(path):
     path: str
         Optapp's project path
     """
-    class DBInjector(containers.DeclarativeContainer):
-        db = providers.Singleton(Database, project_path=path)
-
-    DatabaseInjector.override(testenv.DBInjector)
-
-class DatabaseInjector(containers.DeclarativeContainer):
-    db = providers.Singleton(Database, project_path=".")
-
-class Collections(containers.DeclarativeContainer):
-    approaches = providers.Factory(ApproachCollection, db=DatabaseInjector.db)
-    datasets = providers.Factory(DatasetCollection, db=DatabaseInjector.db)
-    subdatasets = providers.Factory(SubDatasetCollection, db=DatabaseInjector.db)
-    runs = providers.Factory(RunsCollection, db=DatabaseInjector.db)
-
-def set_project_path(path):
-    """
-    Set the project which you are working on. 
-    This will change the path where optapp will look for the embedded database
-
-    Parameters
-    ----------
-    path: str
-        Optapp's project path
-    """
-    class DBInjector(containers.DeclarativeContainer):
-        db = providers.Singleton(Database, project_path=path)
-
-    DatabaseInjector.override(DBInjector)
+    _global_config['project_path'] = path

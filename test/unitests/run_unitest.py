@@ -6,7 +6,6 @@ from pathlib import Path
 from optapp.run import Run, RunPool
 from optapp.data import Dataset, SubDataset
 from optapp import Approach, Project, set_project_path
-from optapp.db import DatabaseInjector
 
 from test import testenv
 

@@ -1,7 +1,7 @@
 import os
 import re
+import inspect
 import hashlib
-import importlib
 from pathlib import Path
 from abc import ABC, abstractmethod, abstractproperty
 
@@ -10,7 +10,7 @@ import numpy as np
 from PIL import Image
 
 from optapp.exceptions import OptAppFileDatasourceNotCompatibeException, OptAppMethodNotImplementedYetException
-from optapp.utils import filepath_to_uri, uri_to_filepath, check_uri, get_file_extension, compile_path_pattern
+from optapp.utils import filepath_to_uri, uri_to_filepath, check_uri, get_file_extension, compile_path_pattern, import_from
 
 class Datasource(ABC):
     """
@@ -96,10 +96,12 @@ class Datasource(ABC):
         -------
         Datasource
         """
-        datasource_class_ = getattr(
-                                importlib.import_module("optapp.data"), 
-                                data["type"])
-        del data["type"]
+
+        datasource_class_ = import_from(data["module"], 
+                                        data["class_name"])
+        del data["class_name"]
+        del data["module"]
+        
         return datasource_class_(**data)
 
     def get_info(self):
@@ -112,9 +114,11 @@ class Datasource(ABC):
             Dictionary used to serialize Optapp Datasource instance
         """
         return {
-            "type": self.__class__.__name__,
+            "module": self.__module__,
+            "class_name": self.__class__.__name__,
             "path": self.get_uri()
         }
+
 
 class FileDatasource(Datasource):
     """
@@ -155,6 +159,10 @@ class FileDatasource(Datasource):
         else:
             df = self.get_data()
             self._label = df.columns[-1]
+            # If column hasn't got a name, 
+            # cast the index (originaly numpy.int64) to python's int
+            if not isinstance(self._label, str):
+                self._label = int(self._label)
             return self._label
 
     def get_infolist(self):
