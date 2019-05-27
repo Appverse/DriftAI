@@ -98,7 +98,7 @@ class UtilsTest(unittest.TestCase):
             str(Path("optapp_projects", "my_project", "data", "fold1", "cat-1110.png"))
         )
         self.assertIsNotNone(t)
-        self.assertEqual(list(t.groupdict().values()), values)
+        self.assertEqual(sorted(list(t.groupdict().values())), sorted(values))
         
 
 if __name__ == '__main__':

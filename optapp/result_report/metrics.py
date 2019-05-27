@@ -203,6 +203,9 @@ def f1(y_true, y_pred):
     """
     recall_ = recall(y_true, y_pred)
     precision_ = precision(y_true, y_pred)
+    if precision_ + recall_ <= 0:
+        return 0
+        
     return 2 * (precision_ * recall_) / (precision_ + recall_)
 
 def mae(y_true, y_pred):
