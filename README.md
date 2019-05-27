@@ -1,5 +1,9 @@
 # Optapp
 
+[![Build Status](https://travis-ci.org/Appverse/DriftAI.svg?branch=master)](https://travis-ci.org/Appverse/DriftAI)
+
+[![Documentation Status](https://readthedocs.org/projects/driftai/badge/?version=latest)](https://driftai.readthedocs.io/en/latest/?badge=latest)
+
 Optapp is a Machine Learning development framework. It's main aim is to standardize the model development cycle increasing the rapidness and a higher technology flexibility, allowing the inclusion of several libraries. It establishes a common framework among developers for model reproductivity and testing.
 
 ## License

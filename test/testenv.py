@@ -1,5 +1,4 @@
 import shutil
-import re
 from pathlib import Path
 
 from optapp.db import Database, DatabaseInjector

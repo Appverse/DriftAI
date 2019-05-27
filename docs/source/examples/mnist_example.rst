@@ -92,6 +92,7 @@ Once we have a project defined, we have to create a `Dataset`. As we have downlo
 Once we created the `Dataset`, as we are working outside the project directory, we have to change the path where optapp looks for the database:
 
 .. code-block:: python
+
     # This will let us execute optapp scripts from any directory
     set_project_path(p.path) 
     ds.save()

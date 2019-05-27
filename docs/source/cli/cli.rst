@@ -10,13 +10,13 @@ The Optapp CLI makes easy to create the project structure.
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt new <project-name>
 
 Example:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt new iris-project
 
@@ -27,7 +27,7 @@ Add a new element to the project
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt add --help
     Usage: opt add [OPTIONS] [dataset]
@@ -47,7 +47,7 @@ Adds a new dataset to project.
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt add dataset --path <dataset_path>
 
@@ -55,14 +55,14 @@ Examples:
 
 Adding a csv file as Dataset:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt add dataset --path path/to/dataset/Iris.csv
     Dataset with id Iris created
 
 Adding a directory as Dataset:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt add dataset --path path/to/dataset/MNIST/ --parsing-pattern {class}/{}.[png|jpg] --datatype img
     Dataset with id Iris created
@@ -75,7 +75,7 @@ Generates a new element based on the existent ones. For example: Crates a `Subda
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt generate --help
     Usage: opt generate [OPTIONS] [subdataset|approach] IDENTIFIER
@@ -98,13 +98,13 @@ Generates a dataset's partitions using K-folds or train test split.
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt generate subdataset <dataset_id> --method <k_fold|train_test> --by <number of folds|train %>
 
 Example:
 
-.. code-block:: bash
+.. code-block:: console
 
     # Creates a partition of a dataset where 25% of the instances belongs to the test set
     $ opt generate subdataset Iris --method train_test --by 0.75
@@ -121,13 +121,13 @@ Creates a new file containing the `RunnableApproach` class with the specified na
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt generate approach <approach_name> --subdataset <subdataset containing the data to tune the approach model>
 
 Example:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt generate approach random_forest --subdataset Iris_k_fold_5
 
@@ -138,13 +138,13 @@ Check the status of a running approach.
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt status <approach_name>
 
 Example:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt status random_forest
     Loading approach data...
@@ -158,7 +158,7 @@ Run approach with the specified id.
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt run <approach_name>
 
@@ -169,6 +169,6 @@ Evaluate approach's results and generates a csv file named `<approach_name>_eval
 
 Usage:
 
-.. code-block:: bash
+.. code-block:: console
 
     $ opt evaluate <approach_name> -m <metric_1> -m <metric_2> ....
