@@ -1,8 +1,5 @@
 import shutil
-import re
 from pathlib import Path
-
-from dependency_injector import containers, providers
 
 from optapp.db import Database, DatabaseInjector
 
@@ -41,25 +38,10 @@ def delete_mock_projects():
         shutil.rmtree(MOCK_PROJECT_PATH)
 
     for path in Path(TEST_PATH).iterdir():
-        if path.is_dir():
+        if path.is_dir() and path.stem.startswith(DEFAULT_PROJECT_NAME):
+            DatabaseInjector.reset()
 
-            if path.stem.startswith(DEFAULT_PROJECT_NAME):
-                DatabaseInjector.db.reset()
-
-                # Remove default named project
-                shutil.rmtree(str(path))
+            # Remove default named project
+            shutil.rmtree(str(path))
     
-    DatabaseInjector.db.reset()
-
-class IdentityDBInjector(containers.DeclarativeContainer):
-    class DatabaseIdentity(object):
-        def __init__(self, project_path):
-            pass
- 
-        def __getattr__(self, name):
-            def identity(*args):
-                return args
-
-            return identity
-        
-    db = providers.Singleton(DatabaseIdentity, project_path=str(Path(TEST_PATH, DEFAULT_PROJECT_NAME)))
+    DatabaseInjector.reset()

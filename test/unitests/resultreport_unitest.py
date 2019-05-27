@@ -7,7 +7,6 @@ from optapp.data import Dataset, SubDataset
 from optapp.run import Run, RunGenerator
 from optapp.result_report import ResultReport, recall, precision, f1
 from optapp import Approach, Project, set_project_path
-from optapp.db import DatabaseInjector
 from optapp.utils import import_from
 
 from test import testenv

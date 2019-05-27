@@ -37,7 +37,8 @@ class DatasetTest(unittest.TestCase):
         A Dataset object instance created from the dataset file
         """
         Project(name=self.aux_project_name, path=self.path_to_test_dir)
-        ds = Dataset.read_file(path=self.path_to_dataset)
+        ds = Dataset.read_file(path=self.path_to_dataset,
+                               first_line_heading=False)
         self.assertIsInstance(ds, Dataset)
         self.assertIsInstance(ds.datasource, FileDatasource)
         return ds
@@ -95,6 +96,8 @@ class DatasetTest(unittest.TestCase):
         """
         ds1 = self.test_save_dataset()
         ds2 = Dataset.load(ds1.id)
+        
+        ds2.get_info()
 
         self.assertEqual(ds1, ds2)
         return ds2
@@ -106,7 +109,7 @@ class DatasetTest(unittest.TestCase):
         Asserts
         -------
             - Dataset instace infolist is not None
-            - Dataset.get_infolist() does not return None
+            - Dataset.infolist does not return None
         
         Returns
         -------

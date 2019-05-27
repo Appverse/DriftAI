@@ -267,9 +267,11 @@ def compile_path_pattern(p, basepattern="", all_path_matcher_name=''):
             }
 
     """
+
+    os_p = p.replace('/', os.path.sep)
     #split extension
     try:
-        extension = p.split(".")[1]
+        extension = os_p.split(".")[1]
     except ValueError:
         extension = None
     if extension:
@@ -296,7 +298,7 @@ def compile_path_pattern(p, basepattern="", all_path_matcher_name=''):
 
     #split path
     try:
-        path = p.split(".")[0]
+        path = os_p.split(".")[0]
     except ValueError:
         path = None
 

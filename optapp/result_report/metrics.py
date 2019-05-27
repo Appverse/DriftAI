@@ -3,7 +3,7 @@ from math import sqrt
 import numpy as np
 
 
-from sklearn import metrics
+from sklearn import metrics as skmetrics
 
 def multiclass_recall(y_true, y_pred):
     """
@@ -28,7 +28,7 @@ def multiclass_recall(y_true, y_pred):
         In case of binary classification returns the recall. 
         In multiclass classification returns the recall for each class
     """
-    return metrics.recall_score(y_true, y_pred, average=None)
+    return skmetrics.recall_score(y_true, y_pred, average=None)
 
 def multiclass_precision(y_true, y_pred):
     """
@@ -54,7 +54,7 @@ def multiclass_precision(y_true, y_pred):
         In case of binary classification returns the precision. 
         In multiclass classification returns the precision of each class.
     """
-    return metrics.precision_score(y_true, y_pred, average=None)
+    return skmetrics.precision_score(y_true, y_pred, average=None)
 
 
 def multiclass_f1(y_true, y_pred):
@@ -85,7 +85,7 @@ def multiclass_f1(y_true, y_pred):
     list of float
         F1 score of each class
     """
-    return metrics.f1_score(y_true, y_pred, average=None)
+    return skmetrics.f1_score(y_true, y_pred, average=None)
 
 def recall(y_true, y_pred):
     """
@@ -110,7 +110,7 @@ def recall(y_true, y_pred):
         In case of binary classification returns the recall. 
         In multiclass classification return the mean of all recalls
     """
-    cm = metrics.confusion_matrix(y_true, y_pred)
+    cm = skmetrics.confusion_matrix(y_true, y_pred)
     diag = np.diag(cm)
     sum_ = np.sum(cm, axis=1)
     recall = np.ones((len(diag)))
@@ -139,7 +139,7 @@ def accuracy(y_true, y_pred):
         return the fraction of correctly classified samples
         The best performance is 1
     """
-    return metrics.accuracy_score(y_true, y_pred)
+    return skmetrics.accuracy_score(y_true, y_pred)
     
 def precision(y_true, y_pred):
     """
@@ -165,7 +165,7 @@ def precision(y_true, y_pred):
         In case of binary classification returns the precision. 
         In multiclass classification return the mean of all precisions.
     """
-    cm = metrics.confusion_matrix(y_true, y_pred)
+    cm = skmetrics.confusion_matrix(y_true, y_pred)
     diag = np.diag(cm)
     sum_ = np.sum(cm, axis=0)
     precision = np.ones((len(diag)))
@@ -203,6 +203,9 @@ def f1(y_true, y_pred):
     """
     recall_ = recall(y_true, y_pred)
     precision_ = precision(y_true, y_pred)
+    if precision_ + recall_ <= 0:
+        return 0
+        
     return 2 * (precision_ * recall_) / (precision_ + recall_)
 
 def mae(y_true, y_pred):
@@ -222,7 +225,7 @@ def mae(y_true, y_pred):
         average of all predictions errors.
         MAE output is non-negative floating point. The best value is 0.0. 
     """
-    return metrics.mean_absolute_error(y_true, y_pred)
+    return skmetrics.mean_absolute_error(y_true, y_pred)
 
 def mse(y_true, y_pred):
     """
@@ -241,7 +244,7 @@ def mse(y_true, y_pred):
     float
         A non-negative floating point value (the best value is 0.0) 
     """
-    return metrics.mean_squared_error(y_true, y_pred)
+    return skmetrics.mean_squared_error(y_true, y_pred)
 
 def rmse(y_true, y_pred):
     """
@@ -259,4 +262,18 @@ def rmse(y_true, y_pred):
     float
         A non-negative floating point value (the best value is 0.0) 
     """
-    return sqrt(metrics.mean_squared_error(y_true, y_pred))
+    return sqrt(skmetrics.mean_squared_error(y_true, y_pred))
+
+str_to_metric_fn = {
+    'recall': recall,
+    'precision': precision,
+    'f1': f1,
+    'mae': mae,
+    'mse': mse,
+    'rmse': rmse,
+    'multiclass_recall': multiclass_recall,
+    'multiclass_precision': multiclass_precision,
+    'multiclass_f1': multiclass_f1,
+    'accuracy': accuracy,
+    'acc': accuracy
+} 

@@ -15,7 +15,6 @@ setup(
         'numpy', 
         'pandas', 
         'scikit-learn', 
-        "dependency-injector", 
         "click",
         "tinydb",
         "pillow",
@@ -23,7 +22,6 @@ setup(
     include_package_data=True,
     keywords='machine-learning ml framework automatization optimization',
     packages=find_packages(exclude=['test', 'test.*']),
-     package_data={"optapp": flask_files},
     entry_points='''
         [console_scripts]
         opt=optapp.cli:main

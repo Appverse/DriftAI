@@ -1,0 +1,21 @@
+# Visual Studio Code
+.vscode
+.DS_Store
+
+# Python stuff
+*.pyc
+__pycache__/
+dist/
+*.egg-info
+
+# Installation
+build/
+
+# Examples data
+examples/**/data/
+
+# Examples projects
+examples/**/*-project/
+
+# Virual environments
+venv/

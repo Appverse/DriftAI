@@ -8,7 +8,6 @@ from optapp import set_project_path
 from optapp.data import SubDataset, Dataset
 from optapp import Approach, Project
 from optapp.run import RunGenerator, Run
-from optapp.db import DatabaseInjector
 from optapp.utils import import_from
 
 class ApproachTest(unittest.TestCase):
@@ -16,7 +15,9 @@ class ApproachTest(unittest.TestCase):
         set_project_path(testenv.MOCK_PROJECT_PATH)
 
         self.p = Project(path=testenv.TEST_PATH, name=testenv.MOCK_PROJECT_NAME)
-        self.ds = Dataset.read_file(path=testenv.MOCK_DATASET)
+        self.ds = Dataset.read_file(path=testenv.MOCK_DATASET, 
+                                    first_line_heading=False)
+
         self.ds.save()
 
         self.sbds = SubDataset(self.ds, method="k_fold", by=5)

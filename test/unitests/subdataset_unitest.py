@@ -7,7 +7,6 @@ from optapp import set_project_path
 from optapp.data import Dataset, SubDataset
 from optapp.project import Project
 from optapp.run import Run, RunGenerator
-from optapp.db import DatabaseInjector
 
 from test import testenv
 

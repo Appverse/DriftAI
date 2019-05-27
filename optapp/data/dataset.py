@@ -8,7 +8,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 from .datasource import Datasource, FileDatasource, ImageDatasource
-from optapp.utils import uri_to_filepath, maybe_make_dir, str_to_date
+from optapp.utils import uri_to_filepath, maybe_make_dir, str_to_date, import_from
 from optapp.db import Persistent, Collections
 
 from optapp.exceptions import OptAppInvalidStructureException, \
@@ -101,20 +101,25 @@ class Dataset(Persistent):
         -------
         DirectoryDatasource
         """
+        def _custom_datasource_class(dtype):
+            split = dtype.split('.')
+            return import_from('.'.join(split[:-1]), split[-1])
+
         datasource_classes = {
-            "img": ImageDatasource
+            "img": ImageDatasource,
         }
 
         if datatype not in datasource_classes:
-            raise OptAppMethodNotImplementedYetException(
-                "DirectoryDatasource with datatype {} not implemented yet".format(datatype))        
-
+            ds_class = _custom_datasource_class(datatype)
+        else:
+            ds_class = datasource_classes[datatype]
+            
         datasource_parameters = dict(path=path)
         if path_pattern:
             datasource_parameters["parsing_pattern"] = path_pattern
 
         params = {
-            "datasource": datasource_classes[datatype](**datasource_parameters),
+            "datasource": ds_class(**datasource_parameters),
             "id": Path(path).stem,
         }
         return Dataset(**params)

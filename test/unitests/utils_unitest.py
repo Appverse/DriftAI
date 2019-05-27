@@ -78,8 +78,8 @@ class UtilsTest(unittest.TestCase):
 
         patterns = [
             {
-                "basepattern": r"C:\optapp_projects\my_project\data",
-                "pathpattern" : r"{{{}}}\{{{}}}-{{}}.{}",
+                "basepattern": str(Path("optapp_projects", "my_project", "data")),
+                "pathpattern" : r"{{{}}}/{{{}}}-{{}}.{}",
                 "labels" : ["label1", "label2"],
                 "extension" : ["png", "jpg"]
             }
@@ -92,14 +92,13 @@ class UtilsTest(unittest.TestCase):
         ext = "[{}]".format("|".join(patterns[0]["extension"]))
         cp = compile_path_pattern(patterns[0]["pathpattern"].format(*patterns[0]["labels"],ext), 
                                   basepattern=patterns[0]["basepattern"])
-        print(cp)
         values = ["fold1", "cat"]
         t = re.match(
             cp,
-            "C:\\optapp_projects\\my_project\\data\\fold1\\cat-1110.png"
+            str(Path("optapp_projects", "my_project", "data", "fold1", "cat-1110.png"))
         )
         self.assertIsNotNone(t)
-        self.assertEqual(list(t.groupdict().values()), values)
+        self.assertEqual(sorted(list(t.groupdict().values())), sorted(values))
         
 
 if __name__ == '__main__':

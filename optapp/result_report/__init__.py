@@ -5,4 +5,6 @@ from .metrics import *
 __all__ = ["Result", "ResultReport",
             "recall", "precision", "f1", "accuracy", 
             "mae", "mse", "rmse",
-            "multiclass_recall", "multiclass_precision", "multiclass_f1",]
+            "multiclass_recall", "multiclass_precision", "multiclass_f1",
+            "str_to_metric_fn"]
+            

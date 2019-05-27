@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install -r requirements.txt
+  - python setup.py install -f
+
+script:
+  - sphinx-build -b html docs/source docs/build
+  - python -m unittest test/unitests/*.py
