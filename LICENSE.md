@@ -37,7 +37,7 @@ License. For legal entities, “You” includes any entity that controls, is con
 
 ## License Grants and Conditions
 
-###2.1. Grants
+### 2.1. Grants
 
 Each Contributor hereby grants You a world-wide, royalty-free, non-exclusive license, for the maximum period of legal duration of the rights:
 
