@@ -135,10 +135,10 @@ def status(approach_id):
     print("Loading approach data...")
     stat = Approach.load(approach_id).status
     if not stat["done"]:
-        print(f"Approach {approach_id} is still running")
+        print("Approach {} is still running".format(approach_id))
         print(stat["progress_bar"] + " Done runs: " + str(stat["done_runs"]) + " Total runs: " + str(stat["total_runs"]))
     else:
-        print(f"There are no left runs for Approach {approach_id}!")
+        print("There are no left runs for Approach {approach_id}!".format(approach_id))
 
 
 @main.command()

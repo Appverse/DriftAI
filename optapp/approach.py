@@ -164,7 +164,7 @@ class {}Approach(RunnableApproach):
             "done": done_runs == total_runs,
             "total_runs": total_runs,
             "done_runs": done_runs,
-            "progress_bar": f" [{bar}] {percent} %"
+            "progress_bar": " [{}] {} %".format(bar, percent)
         }
         
     def get_last_run_date(self):
