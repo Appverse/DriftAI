@@ -1,16 +1,16 @@
 =======================================================
-Using optapp to train a classifier on the MNIST dataset
+Using driftai to train a classifier on the MNIST dataset
 =======================================================
 
-In the Iris dataset example we have seen how to use optapp client to train a classifier over the Iris dataset. One of the benefits of optapp is that it has been designed to let the programmer to use its API to build its own scripts. This way, using the API, the programmer can automate the execution and extend optapp features programatically.
+In the Iris dataset example we have seen how to use driftai client to train a classifier over the Iris dataset. One of the benefits of driftai is that it has been designed to let the programmer to use its API to build its own scripts. This way, using the API, the programmer can automate the execution and extend driftai features programatically.
 
 
-Optapp has a series of benefits on how to organise and run Machine Learning worflows. This example shows how optapp can be used to train a classifier on the MNIST dataset.
+DriftAI has a series of benefits on how to organise and run Machine Learning worflows. This example shows how driftai can be used to train a classifier on the MNIST dataset.
 
-This tutorial asumes that the programmer (you, for example) has already installed optapp in her machine. We also asume that the programmer has downladed optapp somewhere in its local drive and the path is in `$OPTAPP_HOME` in the environment variable and that you have a `OPTAPP_HOME` home in the script we are going to write.
+This tutorial asumes that the programmer (you, for example) has already installed driftai in her machine. We also asume that the programmer has downladed driftai somewhere in its local drive and the path is in `$OPTAPP_HOME` in the environment variable and that you have a `OPTAPP_HOME` home in the script we are going to write.
 
 
-Before we start trainig models we will download the MNIST dataset and store it as a valid optapp format.
+Before we start trainig models we will download the MNIST dataset and store it as a valid driftai format.
 
 Download the data
 -----------------
@@ -25,21 +25,21 @@ Then run :
 
 This script will download data from the The MNIST Database (http://yann.lecun.com/exdb/mnist/index.html) and generate a tree source with the data. This tree source has to main folders (tain and test) and in each folder has a set of images. Each image has an idetifier with the following shape: <img_label>_<img_id>.png, where <img_label> is the label of the image  and <img_id> is an autonumeric index starting from 0 for each image label. As an example, we can find train/0_0.png which is the first 0 labelled image, and we can also find train/1_0.png or train/0_100.png.
 
-Create the optapp script
+Create the driftai script
 ------------------------
 
-After having optapp installed and having downloaded MNIST data, all the needed material is a code editor.
+After having driftai installed and having downloaded MNIST data, all the needed material is a code editor.
 
 Open a python script and import all the necessary dependencies
 
 .. code-block:: python
 
-    from optapp import set_project_path
-    from optapp.project import Project
-    from optapp.data.dataset import Dataset
-    from optapp.approach import Approach
+    from driftai import set_project_path
+    from driftai.project import Project
+    from driftai.data.dataset import Dataset
+    from driftai.approach import Approach
 
-The imports show how optapp is internally organized and during the rest of the tutorial we will take a look on how can we use each of the optapp components to run our project.
+The imports show how driftai is internally organized and during the rest of the tutorial we will take a look on how can we use each of the driftai components to run our project.
 
 Project Creation
 ^^^^^^^^^^^^^^^^
@@ -66,12 +66,12 @@ This automatically will create a new directory in "C:/path_to_my_project/my_proj
     mnist_example
     ├── approaches
     ├── project_files
-    └── optapp.db
+    └── driftai.db
 
 Where:
     * approaches will contain the code for the apporaches we want to add to the project
     * project_files will contain metadata regardin the project
-    * optapp.db will contain most of the information of the project execution, ranging from runs configuration to results
+    * driftai.db will contain most of the information of the project execution, ranging from runs configuration to results
 
 Dataset Creation
 ^^^^^^^^^^^^^^^^
@@ -89,10 +89,10 @@ Once we have a project defined, we have to create a `Dataset`. As we have downlo
 | We can tackle different directory structures , refer to: TODO... |
 +------------------------------------------------------------------+
 
-Once we created the `Dataset`, as we are working outside the project directory, we have to change the path where optapp looks for the database:
+Once we created the `Dataset`, as we are working outside the project directory, we have to change the path where driftai looks for the database:
 
 .. code-block:: python
-    # This will let us execute optapp scripts from any directory
+    # This will let us execute driftai scripts from any directory
     set_project_path(p.path) 
     ds.save()
 
@@ -101,7 +101,7 @@ After this, the dataset has been registered to our current project.
 Subdataset Creation
 ^^^^^^^^^^^^^^^^^^^
 
-A subdataset is a subset of a dataset. How this subset is generated, depends on the strategy we choose. Optapp provides some implemented strategies, but it also provides enough fleixbility to extend and implement your own subdataset generation.
+A subdataset is a subset of a dataset. How this subset is generated, depends on the strategy we choose. DriftAI provides some implemented strategies, but it also provides enough fleixbility to extend and implement your own subdataset generation.
 
 .. TODO: make a tutorial on how to extend subdataset generation
 
@@ -132,7 +132,7 @@ This will modify our project structure:
     ├── approaches
     │   └── random_forest.py
     ├── project_files
-    └── optapp.db
+    └── driftai.db
 
 We can see tha under `approaches`, we have a new Python script, named random_forest.py. If we take a look at the script we'll find that there's some code in it:
 
@@ -146,8 +146,8 @@ We can see tha under `approaches`, we have a new Python script, named random_for
 
 .. code-block:: python
 
-    from optapp import RunnableApproach
-    from optapp.run import single_run
+    from driftai import RunnableApproach
+    from driftai.run import single_run
 
     @single_run
     class RandomForestApproach(RunnableApproach):
@@ -171,7 +171,7 @@ We can see tha under `approaches`, we have a new Python script, named random_for
             """
             return None
 
-In the `learn` function we'll have to define the logic to train each fold/parameters combination. Optapp will take control of how the arguments `data` and `parameters` are passed to the function. You have to return the trained model at the end of the function. For example, let's define the training part of a LogisticRegression:
+In the `learn` function we'll have to define the logic to train each fold/parameters combination. DriftAI will take control of how the arguments `data` and `parameters` are passed to the function. You have to return the trained model at the end of the function. For example, let's define the training part of a LogisticRegression:
 
 .. code-block:: python
 
@@ -184,7 +184,7 @@ In the `learn` function we'll have to define the logic to train each fold/parame
         return RandomForestClassifier(**parameters).fit(**data)
 
 
-In the `inference` function we'll use the trained the model to predict results over the test data. Again optapp will manage which data and will take care of providing the propper model. Depending on the model well have to change the predict function, but using the LogisitRegressor form scikit-learn, it will look like:
+In the `inference` function we'll use the trained the model to predict results over the test data. Again driftai will manage which data and will take care of providing the propper model. Depending on the model well have to change the predict function, but using the LogisitRegressor form scikit-learn, it will look like:
 
 .. code-block:: python
 
@@ -194,11 +194,11 @@ In the `inference` function we'll use the trained the model to predict results o
         """
         return model.predict(data["X"])
 
-Finally, in `parameters` function we'll define the parameters space to define the ranges where we'll search the best parameters for our model. The parameters will have to be defined using the data types defined in `optapp.parameters`. For example, in our example we have defined:
+Finally, in `parameters` function we'll define the parameters space to define the ranges where we'll search the best parameters for our model. The parameters will have to be defined using the data types defined in `driftai.parameters`. For example, in our example we have defined:
 
 .. code-block:: python
 
-    from optapp.parameters import FloatParameter, BoolParameter
+    from driftai.parameters import FloatParameter, BoolParameter
 
     @property
     def parameters(self):
@@ -213,7 +213,7 @@ Finally, in `parameters` function we'll define the parameters space to define th
 
         return pars
 
-Optapp will generate a search space using these parameter ranges. These parameters will be passed to inference.
+DriftAI will generate a search space using these parameter ranges. These parameters will be passed to inference.
 
 Once we have defined the logics for training and predicting, and the parameter space definition in `my_approach.py` we're ready to continue with our otpapp run script.
 
@@ -244,6 +244,6 @@ Once we have this, then we can run the approach.
 Conclusion
 ----------
 
-This tutorial covers two main optapp features. In one hand we have seen how to use optapp through its API, so you can define your own running scripts.
+This tutorial covers two main driftai features. In one hand we have seen how to use driftai through its API, so you can define your own running scripts.
 
 On the other hand we have seen how to define a datasource that handles data from a directory, this is very useful when dealing with Images like the MNIST dataset.

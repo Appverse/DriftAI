@@ -1,12 +1,12 @@
 ======================================================
-Using optapp to train a classifier on the Iris dataset
+Using driftai to train a classifier on the Iris dataset
 ======================================================
 
-Optapp has a series of benefits on how to organise and run Machine Learning worflows. This example shows how optapp can be used to train a classifier on the Iris dataset.
+DriftAI has a series of benefits on how to organise and run Machine Learning worflows. This example shows how driftai can be used to train a classifier on the Iris dataset.
 
-This tutorial asumes that the user (you, for example) has already installed optapp in her machine. `
+This tutorial asumes that the user (you, for example) has already installed driftai in her machine. `
 
-Before we start trainig models we will download the Iris dataset and store it as a valid optapp format.
+Before we start trainig models we will download the Iris dataset and store it as a valid driftai format.
 
 +----------------------------------------------------+
 | Note                                               |
@@ -18,12 +18,12 @@ Before we start trainig models we will download the Iris dataset and store it as
 Setting up the project
 ---------------------------------
 
-To create a new optapp project run:
+To create a new driftai project run:
 .. code-block:: shell
 
-    $ opt new <project_name>
+    $ dai new <project_name>
 
-Where ``<project_name>`` is the name you want to set to the current project. As we will train a classifier for the Iris dataset we will run ``opt new iris_classifier``.
+Where ``<project_name>`` is the name you want to set to the current project. As we will train a classifier for the Iris dataset we will run ``dai new iris_classifier``.
 
 After doing this we can check that a new directory has been created in our current path. It has some content, and the file tree is the following one:
 ::
@@ -31,12 +31,12 @@ After doing this we can check that a new directory has been created in our curre
     iris_classifier
     ├── approaches
     ├── project_files         
-    └── optapp.db
+    └── driftai.db
 
 This is the main project folder and each subfolder will contain the necessary onformation to store the workflow configuration files and logs. Let's walk through each of these files and directories:
     * approaches: this directory will contain one subdirectory for each apporach runned or to be runned. The main piece of information of an approach is the approach script that will contain the logic for training and inferring a model. Additionally we can define the parameters which the model will take during the training step.
     * project_files: TO BE DONE
-    * optapp.db: This embedded database will contain the meta information about the project ant all the realated information about optapp objects like the datasets, subdatasets, runs, approaches, etc.
+    * driftai.db: This embedded database will contain the meta information about the project ant all the realated information about driftai objects like the datasets, subdatasets, runs, approaches, etc.
 
 The next steps in the tutorial will show how to define a dataset from an external source (i.e. the Iris dataset) and how to generate a subdataset for a specific approach.
 
@@ -51,7 +51,7 @@ Then run :
 
 ``python download_iris.py`` 
 
-This script will download data from the UCI Machine Learning Repository and generate a csv file with the data. We won't go into details about dataset structure (we know it's not a good practice), but we want to show how transparent optapp is regarding the underlying data.
+This script will download data from the UCI Machine Learning Repository and generate a csv file with the data. We won't go into details about dataset structure (we know it's not a good practice), but we want to show how transparent driftai is regarding the underlying data.
 
 Create a dataset
 -----------------
@@ -60,7 +60,7 @@ Let's import/generate a dataset from a csv file. As we said previously, we have 
 
 .. code-block:: shell
 
-    $ opt add dataset -p C:/path_to_my_project/data/iris.csv
+    $ dai add dataset -p C:/path_to_my_project/data/iris.csv
 
 After doing this, the expected output is:
 
@@ -68,7 +68,7 @@ After doing this, the expected output is:
     
     Dataset with id iris created
 
-The main change here is that optapp has added a new datasets into optapp.db(You can explore it as is a JSON formated file). This new dataset instance will contain: creation date, a description of the datasource including its path to the csv fle, an id, and the infolist, which are the parameters used to generate an optapp's Dataset object.
+The main change here is that driftai has added a new datasets into driftai.db(You can explore it as is a JSON formated file). This new dataset instance will contain: creation date, a description of the datasource including its path to the csv fle, an id, and the infolist, which are the parameters used to generate an driftai's Dataset object.
 
 Probably infolist is the most important thing in this new file, as it will contain an index with a short description and a label for each instance of the dataset. This infolist will be the basis for creating new subdatasets in the future.
 
@@ -79,9 +79,9 @@ Before coding any model training procedure we will have to decide which strategy
 
 .. code-block:: shell
     
-    $ opt generate subdataset iris --by 5 --method k_fold
+    $ dai generate subdataset iris --by 5 --method k_fold
 
-This will generate a new Subdataset entry on optapp.db with a certain id (it will be outputed when crating the dataset) that will contain the necessary metadata for feeding the logics within the runnable apporach script. The data will be feed transparently, no matter the strategy defined in subdataset, to the apporach script.
+This will generate a new Subdataset entry on driftai.db with a certain id (it will be outputed when crating the dataset) that will contain the necessary metadata for feeding the logics within the runnable apporach script. The data will be feed transparently, no matter the strategy defined in subdataset, to the apporach script.
 
 Define a runnable apporach
 --------------------------
@@ -92,7 +92,7 @@ A runnable approach will have to main pieces:
 
 .. code-block:: shell
     
-    $ opt generate approach logistic_regression --subdataset <subdataset_id>
+    $ dai generate approach logistic_regression --subdataset <subdataset_id>
 
 Where ``logistic_regression`` is the name of the approach and 
 ``<subdataset_id>`` is the id of the subdataset we generated. An apporach will be contained in a directory with the following structure:
@@ -101,20 +101,20 @@ Where ``logistic_regression`` is the name of the approach and
     iris_classifier
     ├── approaches
     │   └── logistic_regression.py
-    └── optapp.db
+    └── driftai.db
 
 We are only one step to go and run our approach, before that, let's explore what we've just created in the database.
     * A set of runs each containing on training/validation step
     * results where each result will contain the result of a run if it has been executed and finished correctly
-    * logistic_regression.py will contain the code for the train and inference logics. Note that this script has been generated automatically and it is expected that the optapp user (this is you), fills the different methods within this skeleton.
+    * logistic_regression.py will contain the code for the train and inference logics. Note that this script has been generated automatically and it is expected that the driftai user (this is you), fills the different methods within this skeleton.
 
 Once we now a little bit more about each component in the approach directory, we can fill ``logistic_regression.py`` script. Let's see how it looks like:
 
 
 .. code-block:: python
 
-    from optapp.approach import RunnableApproach, Approach
-    from optapp.run import single_run
+    from driftai.approach import RunnableApproach, Approach
+    from driftai.run import single_run
 
 
    @single_run
@@ -139,7 +139,7 @@ Once we now a little bit more about each component in the approach directory, we
           """
           return None #return predictions
 
-Optapp just needs three things:
+DriftAI just needs three things:
 
 * learn: a learning procedure to generate a model. Here we can use any technology we want. In the Iris dataset case we will use scikit-learn. We can, for example, use a linear regressor:
 
@@ -198,7 +198,7 @@ Don't forget to import necessary packages:
 
 .. code-block:: python
 
-    from optapp.parameters import FloatParameter, BoolParameter
+    from driftai.parameters import FloatParameter, BoolParameter
     from sklearn.linear_model import LogisticRegression
 
 Create a runner
@@ -224,17 +224,17 @@ To see the list of your current projects, run:
 
 .. code-block:: shell
 
-    $ opt results list
+    $ dai results list
 
-Once we have all our approaches, we can see the results of a certain approach, just running ``opt status <apporach_id>``, in our case:
+Once we have all our approaches, we can see the results of a certain approach, just running ``dai status <apporach_id>``, in our case:
 
 .. code-block:: shell
 
-    $ opt status logistic_regression
+    $ dai status logistic_regression
 
 Conclusions
 -----------
 
-We showed how to use Optapp to train a simple example with logistic regression and k-fold cross validation. This example can be extended to more compex approaches. See the following tutorials:
+We showed how to use DriftAI to train a simple example with logistic regression and k-fold cross validation. This example can be extended to more compex approaches. See the following tutorials:
 
 TO BE DONE

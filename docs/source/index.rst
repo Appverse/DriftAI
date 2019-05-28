@@ -1,10 +1,10 @@
-.. Optapp documentation master file, created by
+.. DriftAI documentation master file, created by
    sphinx-quickstart on Fri Feb 15 12:13:42 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Optapp's documentation!
-==================================
+Welcome to DriftAI documentation!
+=================================
 
 .. toctree::
    :maxdepth: 2
@@ -24,11 +24,11 @@ Api Reference
 .. toctree::
     :maxdepth: 2
 
-    api/optapp
-    api/optapp.data
-    api/optapp.parameters
-    api/optapp.run
-    api/optapp.result_report
+    api/driftai
+    api/driftai.data
+    api/driftai.parameters
+    api/driftai.run
+    api/driftai.result_report
 
 Examples
 ========

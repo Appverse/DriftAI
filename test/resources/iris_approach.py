@@ -1,8 +1,8 @@
 from sklearn.tree import DecisionTreeClassifier
 
-from optapp import RunnableApproach, Approach
-from optapp.run import single_run
-from optapp.parameters import IntParameter, BoolParameter, CategoricalParameter
+from driftai import RunnableApproach, Approach
+from driftai.run import single_run
+from driftai.parameters import IntParameter, BoolParameter, CategoricalParameter
 
 @single_run
 class DecisionTreeApproach(RunnableApproach):

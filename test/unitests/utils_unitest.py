@@ -2,7 +2,7 @@ import unittest
 import re
 from pathlib import Path
 
-from optapp.utils import check_uri, compile_path_pattern
+from driftai.utils import check_uri, compile_path_pattern
 from test import testenv
 
 class UtilsTest(unittest.TestCase):
@@ -78,7 +78,7 @@ class UtilsTest(unittest.TestCase):
 
         patterns = [
             {
-                "basepattern": str(Path("optapp_projects", "my_project", "data")),
+                "basepattern": str(Path("driftai_projects", "my_project", "data")),
                 "pathpattern" : r"{{{}}}/{{{}}}-{{}}.{}",
                 "labels" : ["label1", "label2"],
                 "extension" : ["png", "jpg"]
@@ -95,7 +95,7 @@ class UtilsTest(unittest.TestCase):
         values = ["fold1", "cat"]
         t = re.match(
             cp,
-            str(Path("optapp_projects", "my_project", "data", "fold1", "cat-1110.png"))
+            str(Path("driftai_projects", "my_project", "data", "fold1", "cat-1110.png"))
         )
         self.assertIsNotNone(t)
         self.assertEqual(sorted(list(t.groupdict().values())), sorted(values))

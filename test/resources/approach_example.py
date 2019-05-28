@@ -1,8 +1,8 @@
 from sklearn.linear_model import LogisticRegression
 
-from optapp import RunnableApproach, Approach
-from optapp.run import single_run
-from optapp.parameters import FloatParameter, BoolParameter, CategoricalParameter
+from driftai import RunnableApproach, Approach
+from driftai.run import single_run
+from driftai.parameters import FloatParameter, BoolParameter, CategoricalParameter
 
 @single_run
 class LogisticRegressionApproach(RunnableApproach):

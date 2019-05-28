@@ -2,13 +2,13 @@ import sys
 from pathlib import Path 
 import shutil
 
-from optapp.data import Dataset, SubDataset
-from optapp.run import RunGenerator
-from optapp.result_report import ResultReport, recall, precision
-from optapp import Approach, Project
+from driftai.data import Dataset, SubDataset
+from driftai.run import RunGenerator
+from driftai.result_report import ResultReport, recall, precision
+from driftai import Approach, Project
 
 path_to_project = Path(r"..").absolute()
-project_name = "optapp"
+project_name = "driftai"
 project_path = Path(path_to_project, project_name)
 
 if not project_path.is_dir():

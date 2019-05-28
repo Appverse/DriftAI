@@ -4,13 +4,13 @@ from pathlib import Path
 
 import click
 
-from optapp import Approach, Project
-from optapp.data import Dataset, SubDataset
-from optapp.result_report import ResultReport
-from optapp.result_report.metrics import *
+from driftai import Approach, Project
+from driftai.data import Dataset, SubDataset
+from driftai.result_report import ResultReport
+from driftai.result_report.metrics import *
 
-from optapp.run import RunGenerator
-from optapp.utils import import_from, to_camel_case
+from driftai.run import RunGenerator
+from driftai.utils import import_from, to_camel_case
 
 @click.group()
 def main():
@@ -21,14 +21,14 @@ def main():
 
     
 def _is_running_in_project():
-    return Path("optapp.db").exists()
+    return Path("driftai.db").exists()
 
 
 @main.command()
 @click.argument('project_name')
 def new(project_name):
     """
-    Creates the directory tree for a new optapp project
+    Creates the directory tree for a new driftai project
     """
     if Path(project_name).is_dir():
         print("Project already exists")
@@ -55,7 +55,7 @@ def new(project_name):
 def add(item, path, heading, label, parsing_pattern, datatype):
 
     if not _is_running_in_project():
-        print("You must use optapp CLI inside an optapp project directory")
+        print("You must use driftai CLI inside an driftai project directory")
         return
 
     if item == "dataset":
@@ -116,7 +116,7 @@ def generate_approach(identifier, subdataset_id):
     help="ID of the dataset which new subdataset will be generated from")
 def generate(item, identifier, subdataset, method, by, dataset):
     if not _is_running_in_project():
-        print("You must use optapp CLI inside an optapp project directory")
+        print("You must use driftai CLI inside an driftai project directory")
         return
 
     generators = {
@@ -130,7 +130,7 @@ def generate(item, identifier, subdataset, method, by, dataset):
 @click.argument("approach_id")
 def status(approach_id):
     if not _is_running_in_project():
-        print("You must use optapp CLI inside an optapp project directory")
+        print("You must use driftai CLI inside an driftai project directory")
         return
     print("Loading approach data...")
     stat = Approach.load(approach_id).status
@@ -146,7 +146,7 @@ def status(approach_id):
 @click.option('--resume/--no-resume', default="False", help="Resume the last execution?")
 def run(approach_id, resume):
     if not _is_running_in_project():
-        print("You must use optapp CLI inside an optapp project directory")
+        print("You must use driftai CLI inside an driftai project directory")
         return
     if not Approach.collection().exists(approach_id):
         print("Approach with id {} does not exist.".format(approach_id))
@@ -167,7 +167,7 @@ def run(approach_id, resume):
               type=click.Choice(list(str_to_metric_fn.keys())))
 def evaluate(approach_id, metric):
     if not _is_running_in_project():
-        print("You must use optapp CLI inside an optapp project directory")
+        print("You must use driftai CLI inside an driftai project directory")
         return
     if not Approach.collection().exists(approach_id):
         print("Approach with id {} does not exist.".format(approach_id))

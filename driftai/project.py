@@ -12,13 +12,13 @@ import hashlib
 import os
 from pathlib import Path
 
-from optapp.exceptions import OptAppProjectDirNotExistsException, OptAppProjectFileNotExistsException, \
+from driftai.exceptions import OptAppProjectDirNotExistsException, OptAppProjectFileNotExistsException, \
     OptAppProjectElementNotExistsException, OptAppProjectNameExistsException, OptAppProjectLoadPathIsNotDirException, OptAppProjectWrongInfoFileStructureException
 
-from optapp.utils import check_folder_structure, str_to_date
-from optapp.approach import Approach
-from optapp.data import SubDataset
-from optapp.db import Database, Collections, DatabaseInjector
+from driftai.utils import check_folder_structure, str_to_date
+from driftai.approach import Approach
+from driftai.data import SubDataset
+from driftai.db import Database, Collections, DatabaseInjector
 
 __author__ = "Pablo A. Rosado and Francesc Guitart"
 __copyright__ = "Copyright 2018, GFT IT Consulting"
@@ -34,7 +34,7 @@ class Project(object):
     dir_components = {
         "project_files": "dir",
         "approaches": "dir",
-        "optapp.db": "file"
+        "driftai.db": "file"
     }
 
     dir_exceptions = {
@@ -48,7 +48,7 @@ class Project(object):
         Parameters
         ----------
         name: str
-            Project name. Default: untitled_optapp_project
+            Project name. Default: untitled_driftai_project
         path: str
             Project path
         creation_date: datetime
@@ -80,7 +80,7 @@ class Project(object):
     def save(self):
         # Workaround when project is created
         # Project is created at <current_dir>/project_name while user is at <current_dir>
-        # We must force the database to create the new database in <current_dir>/project_name/optapp.db
+        # We must force the database to create the new database in <current_dir>/project_name/driftai.db
         db = Database(self.path)
         db.insert(self.get_info())
         db.close()
@@ -146,12 +146,12 @@ class Project(object):
 
     def _get_name(self, path):
         # Generates a default project name
-        temp_name = "untitled_optapp_project"
+        temp_name = "untitled_driftai_project"
         temp_path = Path(path, temp_name).absolute()
         if temp_path.is_dir():
             i = 1
             while temp_path.is_dir():
-                temp_name = "untitled_optapp_project_{}".format(i)
+                temp_name = "untitled_driftai_project_{}".format(i)
                 temp_path = Path(path, temp_name).absolute()
                 i += 1
         return temp_name
@@ -206,7 +206,7 @@ class Project(object):
         
         Returns
         -------
-        optapp.data.SubDataset
+        driftai.data.SubDataset
         """
         subdatasets = self.get_subdatasets()
         return sorted(subdatasets, key=lambda s: s.creation_date)[-1]

@@ -1,9 +1,9 @@
-# Optapp
+# ![DriftAI Logo](img/driftailogo.png)
 
 [![Build Status](https://travis-ci.com/Appverse/DriftAI.svg?branch=master)](https://travis-ci.com/Appverse/DriftAI)
 [![Documentation Status](https://readthedocs.org/projects/driftai/badge/?version=latest)](https://driftai.readthedocs.io/en/latest/?badge=latest)
 
-Optapp is a Machine Learning development framework. It's main aim is to standardize the model development cycle increasing the rapidness and a higher technology flexibility, allowing the inclusion of several libraries. It establishes a common framework among developers for model reproductivity and testing.
+DriftAI is a Machine Learning development framework. It's main aim is to standardize the model development cycle increasing the rapidness and a higher technology flexibility, allowing the inclusion of several libraries. It establishes a common framework among developers for model reproductivity and testing.
 
 ## License
 
@@ -34,7 +34,7 @@ Optapp is a Machine Learning development framework. It's main aim is to standard
 1. Clone the project
 
 ```
-$ git clone https://git.gft.com/gft-ai-tools/optapp.git && cd optapp
+$ git clone https://git.gft.com/gft-ai-tools/driftai.git && cd driftai
 ```
 2. You need python and pip installed. (If don't have it download it from https://www.python.org/)
 
@@ -51,20 +51,20 @@ $ python setup.py install
 1. Create a project and navigate to its root
 
 ```
-$ opt new <project_name> && cd <project_name>
+$ dai new <project_name> && cd <project_name>
 ```
 
 2. Import a dataset from a datasource
 
 ```bash
-$ opt add dataset -p <datasource_path>
+$ dai add dataset -p <datasource_path>
 Dataset with id <dataset_id> created
 ```
 
-3. Using the `dataset_id` provided in the output of the `opt add dataset` command split your dataset into multiple sub-datasets in order to achive a statistically consistent evaluation.
+3. Using the `dataset_id` provided in the output of the `dai add dataset` command split your dataset into multiple sub-datasets in order to achive a statistically consistent evaluation.
 
 ```bash
-$ opt generate subdataset <dataset_id> --by 5 --method k_fold
+$ dai generate subdataset <dataset_id> --by 5 --method k_fold
 Subdataset with id <subdataset_id> created
 ```
 
@@ -73,23 +73,23 @@ Subdataset with id <subdataset_id> created
 *Tip*: Approach name can't contain whitespaces.
 
 ```
-$ opt generate approach <approach_name> --subdataset <subdataset_id>
+$ dai generate approach <approach_name> --subdataset <subdataset_id>
 ```
 
-*Tip*: To keep consistency and optapp automation benefits don't modify the Approach class name.
+*Tip*: To keep consistency and driftai automation benefits don't modify the Approach class name.
 
 
 8. Fill `learn`, `inference` and `parameters` methods in the recently generated approach file.
     - `learn`: Fit your model here.
     - `inference`: Make predictions here.
-    - `parameters`: Declare your hyperparameters using optapp objects (`CategoricalParameter`, `IntParameter`, `FloatParameter` ...)
+    - `parameters`: Declare your hyperparameters using driftai objects (`CategoricalParameter`, `IntParameter`, `FloatParameter` ...)
 
 *Tip*: By default approach class comes decorated with `@single_run` meaning that approach ig going to run in your machine (in a single computer). More decorators are being developed such as `@dask_runner`, `@cloud_runner`, etc.
 
 9. Run your approach using
 
 ```
-$ opt run <approach_name>
+$ dai run <approach_name>
 ```
 
 ## Running the examples

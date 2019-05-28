@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='optapp',
+    name='driftai',
     version='0.1',
     description='Framework to automate hyperparameter optimization',
     classifiers=[
@@ -24,6 +24,6 @@ setup(
     packages=find_packages(exclude=['test', 'test.*']),
     entry_points='''
         [console_scripts]
-        opt=optapp.cli:main
+        dai=driftai.cli:main
     ''',
 )

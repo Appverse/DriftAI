@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Optapp'
+project = 'DriftAI'
 copyright = '2019, Francesc Guitart Bravo, Guillem Orellana Trullols'
 author = 'Francesc Guitart Bravo, Guillem Orellana Trullols'
 
@@ -107,7 +107,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Optappdoc'
+htmlhelp_basename = 'DriftAIdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -134,7 +134,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Optapp.tex', 'Optapp Documentation',
+    (master_doc, 'DriftAI.tex', 'DriftAI Documentation',
      'Francesc Guitart Bravo, Guillem Orellana Trullols', 'manual'),
 ]
 
@@ -144,7 +144,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'optapp', 'Optapp Documentation',
+    (master_doc, 'driftai', 'DriftAI Documentation',
      [author], 1)
 ]
 
@@ -155,8 +155,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Optapp', 'Optapp Documentation',
-     author, 'Optapp', 'One line description of project.',
+    (master_doc, 'DriftAI', 'DriftAI Documentation',
+     author, 'DriftAI', 'One line description of project.',
      'Miscellaneous'),
 ]
 

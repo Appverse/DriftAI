@@ -7,12 +7,12 @@ from datetime import datetime
 from pathlib import Path
 from abc import abstractmethod, ABC, abstractproperty
 
-from optapp.utils import maybe_make_dir, str_to_date, to_camel_case
-from optapp.db import Persistent
-from optapp.data import SubDataset
-from optapp.run import Run
-from optapp.result_report import ResultReport
-from optapp.exceptions import OptAppInstanceExistsException
+from driftai.utils import maybe_make_dir, str_to_date, to_camel_case
+from driftai.db import Persistent
+from driftai.data import SubDataset
+from driftai.run import Run
+from driftai.result_report import ResultReport
+from driftai.exceptions import OptAppInstanceExistsException
 
 class Approach(Persistent):
     """
@@ -20,8 +20,8 @@ class Approach(Persistent):
     """
     
     _EMPTY_APPROACH = """
-from optapp import RunnableApproach
-from optapp.run import single_run
+from driftai import RunnableApproach
+from driftai.run import single_run
 
 @single_run
 class {}Approach(RunnableApproach):
@@ -52,11 +52,11 @@ class {}Approach(RunnableApproach):
         Parameters
         ----------
         project : Project
-            Optapp Project
+            DriftAI Project
         name : str
             Approach name
         subdataset: Subdataset
-            Optapp Subdataset which contains the training instances 
+            DriftAI Subdataset which contains the training instances 
         path: str, optional
             Path to store the approch. Default value is <project.path>/approaches/<name>
         creation_date: str, optional
@@ -89,7 +89,7 @@ class {}Approach(RunnableApproach):
         -------
         TinyDB instance
         """
-        from optapp.db import Collections
+        from driftai.db import Collections
         return Collections.approaches()
         
     def create_structure(self):
@@ -120,8 +120,8 @@ class {}Approach(RunnableApproach):
         Approach
             Approach instance generated from JSON data
         """
-        from optapp.project import Project
-        from optapp.db import Collections
+        from driftai.project import Project
+        from driftai.db import Collections
         
         subdataset = Collections.subdatasets().get(data["subdataset"])
         a = Approach(

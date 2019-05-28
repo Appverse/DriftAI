@@ -4,12 +4,12 @@ import shutil
 import re
 import warnings
 
-from optapp.data import Dataset, SubDataset
-from optapp.run import RunGenerator
-from optapp import Approach, Project, set_project_path
-from optapp.utils import import_from
-from optapp import set_project_path
-from optapp.exceptions import OptAppProjectNameExistsException
+from driftai.data import Dataset, SubDataset
+from driftai.run import RunGenerator
+from driftai import Approach, Project, set_project_path
+from driftai.utils import import_from
+from driftai import set_project_path
+from driftai.exceptions import OptAppProjectNameExistsException
 
 from test import testenv
 

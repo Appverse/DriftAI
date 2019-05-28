@@ -3,7 +3,7 @@ import sys
 import unittest
 from pathlib import Path
 
-from optapp.data import ImageDatasource
+from driftai.data import ImageDatasource
 from test import testenv
 
 # class DirectoryDatasourceTest(unittest.TestCase):

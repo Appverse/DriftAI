@@ -1,6 +1,6 @@
-from optapp import RunnableApproach
-from optapp.run import single_run
-from optapp.parameters import CategoricalParameter, IntParameter
+from driftai import RunnableApproach
+from driftai.run import single_run
+from driftai.parameters import CategoricalParameter, IntParameter
 
 from sklearn.ensemble import RandomForestClassifier
 

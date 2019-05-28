@@ -1,6 +1,6 @@
-import optapp as opt
-from optapp import RunnableApproach
-from optapp.run import single_run
+import driftai as dai
+from driftai import RunnableApproach
+from driftai.run import single_run
 
 import keras
 import numpy as np
@@ -15,8 +15,8 @@ class CnnApproach(RunnableApproach):
         Declare your parameters here
         """
         return [
-            opt.parameters.IntParameter('clf_neurons', 256, 512, 64),
-            opt.parameters.CategoricalParameter('kernel_size', [3, 5])
+            dai.parameters.IntParameter('clf_neurons', 256, 512, 64),
+            dai.parameters.CategoricalParameter('kernel_size', [3, 5])
         ]
 
     def learn(self, data, parameters):

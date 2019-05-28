@@ -4,7 +4,7 @@ Parameters Objects
 ParameterGrid
 --------------
 
-.. autoclass:: optapp.parameters.parameter_grid.ParameterGrid()
+.. autoclass:: driftai.parameters.parameter_grid.ParameterGrid()
    :members:
    :exclude-members: styles_part
 
@@ -12,7 +12,7 @@ ParameterGrid
 CategoricalParameter
 --------------------
 
-.. autoclass:: optapp.parameters.parameters.CategoricalParameter()
+.. autoclass:: driftai.parameters.parameters.CategoricalParameter()
    :members:
    :exclude-members: styles_part
 
@@ -20,7 +20,7 @@ CategoricalParameter
 BoolParameter
 -------------
 
-.. autoclass:: optapp.parameters.parameters.BoolParameter()
+.. autoclass:: driftai.parameters.parameters.BoolParameter()
    :members:
    :exclude-members: styles_part
 
@@ -28,7 +28,7 @@ BoolParameter
 IntParameter
 ------------
 
-.. autoclass:: optapp.parameters.parameters.IntParameter()
+.. autoclass:: driftai.parameters.parameters.IntParameter()
    :members:
    :exclude-members: styles_part
 
@@ -36,6 +36,6 @@ IntParameter
 FloatParameter
 --------------
 
-.. autoclass:: optapp.parameters.parameters.FloatParameter()
+.. autoclass:: driftai.parameters.parameters.FloatParameter()
    :members:
    :exclude-members: styles_part

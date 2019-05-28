@@ -4,10 +4,10 @@ import re
 from pathlib import Path
 
 from test import testenv
-from optapp.run import ParameterGrid, RunGenerator
-from optapp import Approach, Project, set_project_path
-from optapp.data import Dataset, SubDataset
-from optapp.utils import import_from
+from driftai.run import ParameterGrid, RunGenerator
+from driftai import Approach, Project, set_project_path
+from driftai.data import Dataset, SubDataset
+from driftai.utils import import_from
 
 class RunGeneratorTest(unittest.TestCase):
     def tearDown(self):

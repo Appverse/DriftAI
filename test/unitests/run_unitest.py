@@ -3,9 +3,9 @@ import shutil
 import re
 from pathlib import Path
 
-from optapp.run import Run, RunPool
-from optapp.data import Dataset, SubDataset
-from optapp import Approach, Project, set_project_path
+from driftai.run import Run, RunPool
+from driftai.data import Dataset, SubDataset
+from driftai import Approach, Project, set_project_path
 
 from test import testenv
 

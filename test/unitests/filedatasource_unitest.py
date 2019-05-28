@@ -2,7 +2,7 @@ import unittest
 import re
 from pathlib import Path
 
-from optapp.data.datasource import FileDatasource
+from driftai.data.datasource import FileDatasource
 from test import testenv
 
 class FileDatasourceTest(unittest.TestCase):

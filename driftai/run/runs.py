@@ -6,11 +6,11 @@ from collections import OrderedDict
 import itertools
 import re
 
-from optapp.data import SubDataset
-from optapp.db import Persistent
-from optapp.utils import str_to_date
+from driftai.data import SubDataset
+from driftai.db import Persistent
+from driftai.utils import str_to_date
 
-from optapp.exceptions import OptAppRunFileDoesNotExistException, \
+from driftai.exceptions import OptAppRunFileDoesNotExistException, \
                               OptAppRunFileWrongStructureException, \
                               OptAppInstanceExistsException
 
@@ -46,7 +46,7 @@ class Run(Persistent):
         -------
         TinyDB instance
         """
-        from optapp.db import Collections
+        from driftai.db import Collections
         return Collections.runs(approach_id)
 
     @classmethod
@@ -66,10 +66,10 @@ class Run(Persistent):
 
         Returns
         -------
-        optapp.Run
+        driftai.Run
             New Run instance
         """
-        from optapp.result_report import Result
+        from driftai.result_report import Result
 
         def check_run_file_structure(params):
             if not isinstance(params, dict):
@@ -142,7 +142,7 @@ class Run(Persistent):
 
         Returns
         -------
-        optapp.Result
+        driftai.Result
         """
         return self._results
 
@@ -166,7 +166,7 @@ class Run(Persistent):
                 "subdataset": <subdataset id>,
                 "run_parameters": <hyperparameters of the run>,
                 "status": <run status>,
-                "results": <dict summarizing optapp.Result instance>,
+                "results": <dict summarizing driftai.Result instance>,
                 "creation_date": <run creationd date>,
                 "submitted_date": <when run starts>,
                 "finish_date": <when run finishes>,

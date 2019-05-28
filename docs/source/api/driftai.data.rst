@@ -4,7 +4,7 @@ Data Related Objects
 Datasources
 -----------
 
-.. automodule:: optapp.data.datasource
+.. automodule:: driftai.data.datasource
     :members:
     :undoc-members:
     :show-inheritance:
@@ -13,7 +13,7 @@ Datasources
 Dataset
 -------
 
-.. autoclass:: optapp.data.dataset.Dataset()
+.. autoclass:: driftai.data.dataset.Dataset()
    :members:
    :exclude-members: styles_part
 
@@ -21,6 +21,6 @@ Dataset
 SubDataset
 ----------
 
-.. autoclass:: optapp.data.dataset.SubDataset()
+.. autoclass:: driftai.data.dataset.SubDataset()
    :members:
    :exclude-members: styles_part

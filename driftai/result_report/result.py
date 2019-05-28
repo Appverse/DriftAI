@@ -1,7 +1,7 @@
 from datetime import datetime
 from pathlib import Path
 
-from optapp.utils import str_to_date
+from driftai.utils import str_to_date
 
 class Result(object):
     """

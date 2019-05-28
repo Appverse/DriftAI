@@ -1,9 +1,9 @@
 import time
 import sys
 
-from optapp.data import SubDataset
-from optapp.run import RunPool
-from optapp.result_report import Result
+from driftai.data import SubDataset
+from driftai.run import RunPool
+from driftai.result_report import Result
 
 import dask.bag as db
 from dask.distributed import Client
