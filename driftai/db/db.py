@@ -239,3 +239,5 @@ def set_project_path(path):
         DriftAI's project path
     """
     _global_config['project_path'] = path
+    DatabaseInjector.reset()
+
