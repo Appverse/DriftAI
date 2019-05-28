@@ -1,5 +1,5 @@
 DriftAI CLI
-==========
+===========
 
 The Command Line Interface to improve DriftAI use experience
 

@@ -40,7 +40,7 @@ $ git clone https://git.gft.com/gft-ai-tools/driftai.git && cd driftai
 
 3. You need Visual C++ Build Tools. Download it from https://www.microsoft.com/es-es/download/confirmation.aspx?id=48159
 
-4. Install OptApp with ``setup`` script.
+4. Install DriftAI with ``setup`` script.
 
 ```
 $ python setup.py install

@@ -9,7 +9,7 @@ from driftai.run import RunGenerator
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 from driftai import set_project_path
-from driftai.exceptions import OptAppProjectNameExistsException
+from driftai.exceptions import DriftAIProjectNameExistsException
 
 from test import testenv
 
@@ -94,7 +94,7 @@ class ProjectTest(unittest.TestCase):
             - The second project generates an Exception
         """
         p1 = Project(path=self.path_to_test_dir)
-        with self.assertRaises(OptAppProjectNameExistsException):
+        with self.assertRaises(DriftAIProjectNameExistsException):
             Project(path=self.path_to_test_dir, name=p1.name)
 
     def test_create_two_projects_with_same_name(self):
@@ -110,7 +110,7 @@ class ProjectTest(unittest.TestCase):
         set_project_path(testenv.MOCK_PROJECT_PATH)
 
         p1 = Project(path=self.path_to_test_dir, name=self.project_name)
-        with self.assertRaises(OptAppProjectNameExistsException):
+        with self.assertRaises(DriftAIProjectNameExistsException):
             Project(path=self.path_to_test_dir, name=p1.name)
 
     def test_load_project(self):

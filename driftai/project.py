@@ -12,8 +12,8 @@ import hashlib
 import os
 from pathlib import Path
 
-from driftai.exceptions import OptAppProjectDirNotExistsException, OptAppProjectFileNotExistsException, \
-    OptAppProjectElementNotExistsException, OptAppProjectNameExistsException, OptAppProjectLoadPathIsNotDirException, OptAppProjectWrongInfoFileStructureException
+from driftai.exceptions import DriftAIProjectDirNotExistsException, DriftAIProjectFileNotExistsException, \
+    DriftAIProjectElementNotExistsException, DriftAIProjectNameExistsException, DriftAIProjectLoadPathIsNotDirException, DriftAIProjectWrongInfoFileStructureException
 
 from driftai.utils import check_folder_structure, str_to_date
 from driftai.approach import Approach
@@ -38,9 +38,9 @@ class Project(object):
     }
 
     dir_exceptions = {
-        "file": OptAppProjectFileNotExistsException,
-        "dir": OptAppProjectDirNotExistsException,
-        "default": OptAppProjectElementNotExistsException
+        "file": DriftAIProjectFileNotExistsException,
+        "dir": DriftAIProjectDirNotExistsException,
+        "default": DriftAIProjectElementNotExistsException
     }
 
     def __init__(self, name=None, path=None, creation_date=None):
@@ -56,7 +56,7 @@ class Project(object):
 
         Raises
         ------
-        OptAppProjectNameExistsException
+        DriftAIProjectNameExistsException
             In case project name already exists
         """
         self.name = self._get_name(path) if not name else name
@@ -69,7 +69,7 @@ class Project(object):
         self.creation_date = datetime.now() if not creation_date else creation_date
         
         if creation_date is None and self.exists():
-            raise OptAppProjectNameExistsException(self.path)
+            raise DriftAIProjectNameExistsException(self.path)
         else:
             self._maybe_create_path()
 
@@ -98,7 +98,7 @@ class Project(object):
 
         Raises
         ------
-        OptAppProjectWrongInfoFileStructureException
+        DriftAIProjectWrongInfoFileStructureException
            In case project structure is not valid
 
         Returns
@@ -115,7 +115,7 @@ class Project(object):
         project_content = DatabaseInjector.db().all()[0]
         
         if not check_project_content_structure(project_content):
-            raise OptAppProjectWrongInfoFileStructureException
+            raise DriftAIProjectWrongInfoFileStructureException
         return cls(**project_content)
 
     def exists(self):

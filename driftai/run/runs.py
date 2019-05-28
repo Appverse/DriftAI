@@ -10,9 +10,9 @@ from driftai.data import SubDataset
 from driftai.db import Persistent
 from driftai.utils import str_to_date
 
-from driftai.exceptions import OptAppRunFileDoesNotExistException, \
-                              OptAppRunFileWrongStructureException, \
-                              OptAppInstanceExistsException
+from driftai.exceptions import DriftAIRunFileDoesNotExistException, \
+                              DriftAIRunFileWrongStructureException, \
+                              DriftAIInstanceExistsException
 
 class Run(Persistent):
     def __init__(self, approach_id, subdataset, subdataset_set, run_parameters, 
@@ -30,7 +30,7 @@ class Run(Persistent):
         self.subdataset_set = subdataset_set
         self._id = id or self._get_id()
         if creation_date is None and Run.collection(self.approach_id).exists(self.id):
-            raise OptAppInstanceExistsException("Run")
+            raise DriftAIInstanceExistsException("Run")
 
 
     @property
@@ -61,7 +61,7 @@ class Run(Persistent):
 
         Raises
         ------
-        OptAppSubDatasetInfoFileWrongStructureException
+        DriftAISubDatasetInfoFileWrongStructureException
             If data has worng keys
 
         Returns
@@ -86,7 +86,7 @@ class Run(Persistent):
             data["results"] = Result(**data["results"]) if data["results"] else None
             return cls(**data)
         else:
-            raise OptAppRunFileWrongStructureException()
+            raise DriftAIRunFileWrongStructureException()
 
     def _get_id(self):
         pars = str(self.run_parameters)

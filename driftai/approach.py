@@ -12,7 +12,7 @@ from driftai.db import Persistent
 from driftai.data import SubDataset
 from driftai.run import Run
 from driftai.result_report import ResultReport
-from driftai.exceptions import OptAppInstanceExistsException
+from driftai.exceptions import DriftAIInstanceExistsException
 
 class Approach(Persistent):
     """
@@ -71,7 +71,7 @@ class {}Approach(RunnableApproach):
         self.runs = []
         self.creation_date = str_to_date(creation_date) or datetime.now()
         if creation_date is None and Approach.collection().exists(self.id):
-            raise OptAppInstanceExistsException("Approach")
+            raise DriftAIInstanceExistsException("Approach")
         else:
             self.create_structure()
 
