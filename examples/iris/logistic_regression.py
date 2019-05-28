@@ -1,7 +1,7 @@
 
-from optapp import RunnableApproach
-from optapp.run import single_run
-from optapp.parameters import FloatParameter, BoolParameter
+from driftai import RunnableApproach
+from driftai.run import single_run
+from driftai.parameters import FloatParameter, BoolParameter
 
 from sklearn.linear_model import LogisticRegression
 

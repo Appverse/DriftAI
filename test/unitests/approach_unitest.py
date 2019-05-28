@@ -4,11 +4,11 @@ import shutil
 
 from test import testenv
 
-from optapp import set_project_path
-from optapp.data import SubDataset, Dataset
-from optapp import Approach, Project
-from optapp.run import RunGenerator, Run
-from optapp.utils import import_from
+from driftai import set_project_path
+from driftai.data import SubDataset, Dataset
+from driftai import Approach, Project
+from driftai.run import RunGenerator, Run
+from driftai.utils import import_from
 
 class ApproachTest(unittest.TestCase):
     def setUp(self):

@@ -3,8 +3,8 @@ from pathlib import Path
 import warnings
 
 from .run_manage import RunPool, RunGenerator
-from optapp.result_report import Result
-from optapp.utils import print_progress_bar
+from driftai.result_report import Result
+from driftai.utils import print_progress_bar
 
 import numpy as np
 

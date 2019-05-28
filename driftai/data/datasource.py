@@ -9,8 +9,8 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-from optapp.exceptions import OptAppFileDatasourceNotCompatibeException, OptAppMethodNotImplementedYetException
-from optapp.utils import filepath_to_uri, uri_to_filepath, check_uri, get_file_extension, compile_path_pattern, import_from
+from driftai.exceptions import OptAppFileDatasourceNotCompatibeException, OptAppMethodNotImplementedYetException
+from driftai.utils import filepath_to_uri, uri_to_filepath, check_uri, get_file_extension, compile_path_pattern, import_from
 
 class Datasource(ABC):
     """
@@ -111,7 +111,7 @@ class Datasource(ABC):
         Returns
         -------
         dict
-            Dictionary used to serialize Optapp Datasource instance
+            Dictionary used to serialize DriftAI Datasource instance
         """
         return {
             "module": self.__module__,
@@ -177,7 +177,7 @@ class FileDatasource(Datasource):
         Raises
         ------
         OptAppFileDatasourceNotCompatibeException
-            If file extension is not compatible with Optapp
+            If file extension is not compatible with DriftAI
         """
         compatible_extensions = ["csv"]
         file_ext = get_file_extension(self.datasource)
@@ -312,7 +312,7 @@ class DirectoryDatasource(Datasource):
         Returns
         -------
         dict
-            Dictionary used to serialize an Optapp DirectoryDatasource instance
+            Dictionary used to serialize an DriftAI DirectoryDatasource instance
         """
         return {
             **super(DirectoryDatasource, self).get_info(),

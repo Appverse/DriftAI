@@ -3,10 +3,10 @@ import shutil
 import re
 from pathlib import Path
 
-from optapp import set_project_path
-from optapp.data import Dataset, SubDataset
-from optapp.project import Project
-from optapp.run import Run, RunGenerator
+from driftai import set_project_path
+from driftai.data import Dataset, SubDataset
+from driftai.project import Project
+from driftai.run import Run, RunGenerator
 
 from test import testenv
 

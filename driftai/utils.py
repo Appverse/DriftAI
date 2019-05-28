@@ -45,17 +45,17 @@ def get_current_project_db(path):
     Parameters
     ----------
     path: str
-        Any path inside optapp project
+        Any path inside driftai project
     
     Returns
     -------
-    optapp.db.Database
+    driftai.db.Database
 
     """
-    from optapp.db import Database
+    from driftai.db import Database
 
     def _inspect_path(path):
-        project_db_file = Path(path, "optapp.db")
+        project_db_file = Path(path, "driftai.db")
         if project_db_file.exists():
             return Database(project_db_file.parent)
         return None

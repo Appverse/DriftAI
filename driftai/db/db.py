@@ -9,7 +9,7 @@ from .persistent import Persistent
 class Database(object):
     
     def __init__(self, project_path):
-        self.db = TinyDB(str(Path(project_path, "optapp.db")))
+        self.db = TinyDB(str(Path(project_path, "driftai.db")))
 
     def __getattr__(self, name):
         return getattr(self.db, name)
@@ -31,7 +31,7 @@ class BaseCollection(ABC):
 
         Returns
         -------
-        optapp.db.Persistent
+        driftai.db.Persistent
 
         """
         data = self.collection.get(where("id") == id_)
@@ -58,11 +58,11 @@ class BaseCollection(ABC):
 
     def save(self, instance):
         """
-        Store a persistent instance to optapp db
+        Store a persistent instance to driftai db
 
         Parameters
         ----------
-        instance: optapp.db.Persistent
+        instance: driftai.db.Persistent
             Instance to be stored
 
         """
@@ -73,11 +73,11 @@ class BaseCollection(ABC):
 
     def update(self, instance):
         """
-        Update a persistent instance to optapp db
+        Update a persistent instance to driftai db
 
         Parameters
         ----------
-        instance: optapp.db.Persistent
+        instance: driftai.db.Persistent
             Instance to be updated
         """
         if not isinstance(instance, Persistent):
@@ -112,7 +112,7 @@ class ApproachCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp import Approach
+        from driftai import Approach
         return Approach
 
 class DatasetCollection(BaseCollection):
@@ -123,7 +123,7 @@ class DatasetCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp.data import Dataset
+        from driftai.data import Dataset
         return Dataset
 
 
@@ -135,7 +135,7 @@ class SubDatasetCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp.data import SubDataset
+        from driftai.data import SubDataset
         return SubDataset
 
 class RunsCollection(BaseCollection):
@@ -150,7 +150,7 @@ class RunsCollection(BaseCollection):
 
     @property
     def persistent(self):
-        from optapp.run import Run
+        from driftai.run import Run
         return Run
 
     def get(self, id_):
@@ -159,14 +159,14 @@ class RunsCollection(BaseCollection):
         return self.persistent.load_from_data(possible_result[0]) if possible_result else None
 
     def save(self, instance):
-        from optapp.run import Run
+        from driftai.run import Run
         if not isinstance(instance, Run):
             raise TypeError("instance must be of Run type")
 
         self.collection.update(append_to("runs", instance.get_info()), where("id") == self.approach_id)
 
     def update(self, instance):
-        from optapp.run import Run
+        from driftai.run import Run
         if not isinstance(instance, Run):
             raise TypeError("instance must be of Run type")
         
@@ -231,11 +231,11 @@ class Collections(object):
 def set_project_path(path):
     """
     Set the project which you are working on. 
-    This will change the path where optapp will look for the embedded database
+    This will change the path where driftai will look for the embedded database
 
     Parameters
     ----------
     path: str
-        Optapp's project path
+        DriftAI's project path
     """
     _global_config['project_path'] = path

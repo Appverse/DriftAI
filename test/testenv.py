@@ -1,7 +1,7 @@
 import shutil
 from pathlib import Path
 
-from optapp.db import Database, DatabaseInjector
+from driftai.db import Database, DatabaseInjector
 
 TEST_PATH = str(Path("test").absolute()) 
 _RESOURCES_PATH = Path(TEST_PATH, "resources")
@@ -18,7 +18,7 @@ APPROACH_EXAMPLE = str(Path(_RESOURCES_PATH, "approach_example.py"))
 IRIS_APPROACH_PATH = str(Path(TEST_PATH, "dt"))
 IRIS_APPROACH = str(Path(_RESOURCES_PATH, "iris_approach.py"))
 
-DEFAULT_PROJECT_NAME = "untitled_optapp_project"
+DEFAULT_PROJECT_NAME = "untitled_driftai_project"
 
 def delete_mock_projects():
     """

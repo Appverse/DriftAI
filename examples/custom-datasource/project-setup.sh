@@ -5,8 +5,8 @@
 # rm cifar-10-python.tar.gz
 # python unpickle_cifar10.py
 
-# Create optapp project
-opt new cifar-10-project
+# Create driftai project
+dai new cifar-10-project
 cd cifar-10-project
 
 # Generate custom datasource
@@ -15,13 +15,13 @@ touch datasources/__init__.py
 cp ../image_tensor_ds.py datasources/image_tensor_ds.py
 
 # Create a dataset using custom datasource
-opt add dataset --path ../data/CIFAR-10 \
+dai add dataset --path ../data/CIFAR-10 \
                 --parsing-pattern {}_{class}.png \
                 --datatype datasources.image_tensor_ds.ImageTensorDatasource
 
 # Generate subdataset
-opt generate subdataset CIFAR-10 -m train_test --by .8
+dai generate subdataset CIFAR-10 -m train_test --by .8
 
 # Generate the approach
-opt generate approach cnn --subdataset CIFAR-10_train_test_0.8
+dai generate approach cnn --subdataset CIFAR-10_train_test_0.8
 cp ../cnn.py approaches/cnn.py

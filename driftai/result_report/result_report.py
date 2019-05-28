@@ -4,7 +4,7 @@ import sklearn
 import numpy as np
 import pandas as pd
 
-from optapp.data import SubDataset
+from driftai.data import SubDataset
 from .metrics import recall, precision, f1
 
 class ResultReport(object):
@@ -13,7 +13,7 @@ class ResultReport(object):
         """
         Parameters
         ----------
-        approach: optapp.Approach
+        approach: driftai.Approach
             Location of the results
         metrics: array of metrics
             Set of metrics 

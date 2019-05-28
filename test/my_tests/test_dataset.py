@@ -2,22 +2,22 @@ import sys
 import shutil
 from pathlib import Path
 
-sys.path.append(r"C:\cygwin64\home\fcgr\code\optapp")
+sys.path.append(r"C:\cygwin64\home\fcgr\code\driftai")
 
-from optapp.data.dataset import Dataset
-from optapp.project import Project
-from optapp.approach import Approach
-from optapp import set_project_path
+from driftai.data.dataset import Dataset
+from driftai.project import Project
+from driftai.approach import Approach
+from driftai import set_project_path
 
-ds = Dataset.from_dir(r"C:\cygwin64\home\fcgr\code\optapp\examples\mnst_digit_classification_old\data")
+ds = Dataset.from_dir(r"C:\cygwin64\home\fcgr\code\driftai\examples\mnst_digit_classification_old\data")
 
-proj_path = r"C:\cygwin64\home\fcgr\code\optapp\test\my_tests"
+proj_path = r"C:\cygwin64\home\fcgr\code\driftai\test\my_tests"
 proj_name = "a"
 
 if Path("{}\{}".format(proj_path, proj_name)).exists():
     shutil.rmtree(str(Path("{}\{}".format(proj_path, proj_name)).absolute()))
 
-p = Project(name="a", path=r"C:\cygwin64\home\fcgr\code\optapp\test\my_tests")
+p = Project(name="a", path=r"C:\cygwin64\home\fcgr\code\driftai\test\my_tests")
 set_project_path(p.path)
 
 
@@ -41,7 +41,7 @@ a.save()
 shutil.copy2("my_approach.py", r"a/approaches/")
 
 import sys
-sys.path.append(r"C:\cygwin64\home\fcgr\code\optapp\test\my_tests\a")
+sys.path.append(r"C:\cygwin64\home\fcgr\code\driftai\test\my_tests\a")
 from approaches.my_approach import MyApproachApproach
 
 MyApproachApproach().run(loader=lambda x: np.asarray(Image.open(x)).reshape(-1))

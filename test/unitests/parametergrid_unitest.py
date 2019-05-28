@@ -3,7 +3,7 @@ import shutil
 import re
 from pathlib import Path
 
-from optapp.parameters import ParameterGrid, FloatParameter, BoolParameter
+from driftai.parameters import ParameterGrid, FloatParameter, BoolParameter
 from test import testenv
 
 class ParameterGridTest(unittest.TestCase):

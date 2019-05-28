@@ -1,10 +1,10 @@
 import shutil
 from pathlib import Path
 
-from optapp.data import Dataset, SubDataset
-from optapp.run import RunGenerator
-from optapp.result_report import ResultReport, precision, recall
-from optapp import Approach, Project
+from driftai.data import Dataset, SubDataset
+from driftai.run import RunGenerator
+from driftai.result_report import ResultReport, precision, recall
+from driftai import Approach, Project
 
 def clean(project):
     shutil.rmtree(project.path)

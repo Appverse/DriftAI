@@ -3,10 +3,10 @@ import shutil
 import re
 from pathlib import Path
 
-from optapp import set_project_path
-from optapp.data import Dataset, FileDatasource
-from optapp.project import Project
-from optapp.db import DatabaseInjector
+from driftai import set_project_path
+from driftai.data import Dataset, FileDatasource
+from driftai.project import Project
+from driftai.db import DatabaseInjector
 
 from tinydb import where
 from test import testenv
@@ -19,7 +19,7 @@ class DatasetTest(unittest.TestCase):
         self.path_to_test_dir = testenv.TEST_PATH
         self.aux_project_name = testenv.MOCK_PROJECT_NAME
         self.path_to_auxproj = testenv.MOCK_PROJECT_PATH
-        self.project_default_name = "untitled_optapp_project"
+        self.project_default_name = "untitled_driftai_project"
 
     def tearDown(self):
         testenv.delete_mock_projects()

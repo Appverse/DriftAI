@@ -8,10 +8,10 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 from .datasource import Datasource, FileDatasource, ImageDatasource
-from optapp.utils import uri_to_filepath, maybe_make_dir, str_to_date, import_from
-from optapp.db import Persistent, Collections
+from driftai.utils import uri_to_filepath, maybe_make_dir, str_to_date, import_from
+from driftai.db import Persistent, Collections
 
-from optapp.exceptions import OptAppInvalidStructureException, \
+from driftai.exceptions import OptAppInvalidStructureException, \
                               OptAppInstanceExistsException, \
                               OptAppMethodNotImplementedYetException, \
                               OptAppInvalidStructureException
@@ -30,7 +30,7 @@ class Dataset(Persistent):
             Datasource of the dataset
         problem_type: str, optional
             Objective of the algorithm.
-            If `problem type` is not set manually, optapp will infere it automatically
+            If `problem type` is not set manually, driftai will infere it automatically
             Possible values are: binary_clf, clf or regression
         creation_date: datetime
             Creation date of the dataset. Should not be set manually
@@ -162,7 +162,7 @@ class Dataset(Persistent):
 
         Returns
         -------
-        optapp.Dataset
+        driftai.Dataset
             New Dataset instance
         """
         def check_dataset_info_structure(params):
@@ -240,7 +240,7 @@ class SubDataset(Persistent):
         Parameters
         ----------
         dataset: Dataset
-            Optapp dataset which the current subdataset inherits from
+            DriftAI dataset which the current subdataset inherits from
         method: str
             Evaluation sets split approach.
             Can be: train_test, k_fold
@@ -313,7 +313,7 @@ class SubDataset(Persistent):
 
         Returns
         -------
-        optapp.SubDataset
+        driftai.SubDataset
             New SubDataset instance
         """
         def check_subdataset_info_structure(params):

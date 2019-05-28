@@ -6,7 +6,7 @@ from datetime import datetime
 import numpy as np
 
 from .runs import Run
-from optapp.parameters import ParameterGrid
+from driftai.parameters import ParameterGrid
 
 class RunGenerator(object):
     """
