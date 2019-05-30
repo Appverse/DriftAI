@@ -34,13 +34,13 @@ DriftAI is a Machine Learning development framework. It's main aim is to standar
 1. Clone the project
 
 ```
-$ git clone https://git.gft.com/gft-ai-tools/driftai.git && cd driftai
+$ git clone https://github.com/Appverse/DriftAI.git && cd driftai
 ```
 2. You need python and pip installed. (If don't have it download it from https://www.python.org/)
 
 3. You need Visual C++ Build Tools. Download it from https://www.microsoft.com/es-es/download/confirmation.aspx?id=48159
 
-4. Install OptApp with ``setup`` script.
+4. Install DriftAI with ``setup`` script.
 
 ```
 $ python setup.py install
@@ -57,7 +57,7 @@ $ dai new <project_name> && cd <project_name>
 2. Import a dataset from a datasource
 
 ```bash
-$ dai add dataset -p <datasource_path>
+$ dai add dataset -p <datasource_path> 
 Dataset with id <dataset_id> created
 ```
 
@@ -68,7 +68,7 @@ $ dai generate subdataset <dataset_id> --by 5 --method k_fold
 Subdataset with id <subdataset_id> created
 ```
 
-5. Generate an approach using the `subdataset_id` provided in the provious output. 
+5. Generate an approach using the `subdataset_id` provided in the previous output. 
 
 *Tip*: Approach name can't contain whitespaces.
 
@@ -84,7 +84,7 @@ $ dai generate approach <approach_name> --subdataset <subdataset_id>
     - `inference`: Make predictions here.
     - `parameters`: Declare your hyperparameters using driftai objects (`CategoricalParameter`, `IntParameter`, `FloatParameter` ...)
 
-*Tip*: By default approach class comes decorated with `@single_run` meaning that approach ig going to run in your machine (in a single computer). More decorators are being developed such as `@dask_runner`, `@cloud_runner`, etc.
+*Tip*: By default approach class comes decorated with `@single_run` meaning that approach is going to run in your machine (in a single computer). More decorators are being developed such as `@dask_runner`, `@cloud_runner`, etc.
 
 9. Run your approach using
 
