@@ -1,7 +1,7 @@
 from pathlib import Path
 from abc import ABC, abstractmethod
 
-from driftai.exceptions import OptAppProjectLoadPathIsNotDirException
+from driftai.exceptions import DriftAIProjectLoadPathIsNotDirException
 
 
 class Persistent(ABC):

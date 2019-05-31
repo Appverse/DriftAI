@@ -1,4 +1,4 @@
-class OptAppProjectDirNotExistsException(Exception):
+class DriftAIProjectDirNotExistsException(Exception):
     def __init___(self, dErrorArguments):
         Exception.__init__(
             self,
@@ -7,7 +7,7 @@ class OptAppProjectDirNotExistsException(Exception):
         self.dErrorArguments = dErrorArguments
 
 
-class OptAppProjectFileNotExistsException(Exception):
+class DriftAIProjectFileNotExistsException(Exception):
     def __init___(self, dErrorArguments):
         Exception.__init__(
             self,
@@ -16,7 +16,7 @@ class OptAppProjectFileNotExistsException(Exception):
         self.dErrorArguments = dErrorArguments
 
 
-class OptAppProjectElementNotExistsException(Exception):
+class DriftAIProjectElementNotExistsException(Exception):
     def __init___(self, dErrorArgument1, dErrorArgument2):
         Exception.__init__(
             self,
@@ -26,72 +26,72 @@ class OptAppProjectElementNotExistsException(Exception):
         self.dErrorArgument2 = dErrorArgument2
 
 
-class OptAppFileDatasourceNotCompatibeException(Exception):
+class DriftAIFileDatasourceNotCompatibeException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self, "File format {0} not supported as Datasource".format(
                 dErrorArgument1))
 
 
-class OptAppMethodNotImplementedYetException(Exception):
+class DriftAIMethodNotImplementedYetException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(self, "Method not implemented yet")
 
 
-class OptAppProjectNameExistsException(Exception):
+class DriftAIProjectNameExistsException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self,
             "There already exists a project in: {}".format(dErrorArgument1))
 
 
-class OptAppProjectLoadPathIsNotDirException(Exception):
+class DriftAIProjectLoadPathIsNotDirException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self, "The path provided is not a dir: {}".format(dErrorArgument1))
 
 
-class OptAppDatasetInfoFileDoesNotExistException(Exception):
+class DriftAIDatasetInfoFileDoesNotExistException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self,
             "Datset info file does not exist: {}".format(dErrorArgument1))
 
 
-class OptAppProjectWrongInfoFileStructureException(Exception):
+class DriftAIProjectWrongInfoFileStructureException(Exception):
     def __init___(self):
         Exception.__init__(self, "Wrong project info file structure")
 
 
-class OptAppSubDatasetInfoFileWrongStructureException(Exception):
+class DriftAISubDatasetInfoFileWrongStructureException(Exception):
     def __init___(self):
         Exception.__init__(self, "Wrong subdataset file structure")
 
 
-class OptAppSubDatasetInfoFileDoesNotExistException(Exception):
+class DriftAISubDatasetInfoFileDoesNotExistException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self,
             "SubDatset info file does not exist: {}".format(dErrorArgument1))
 
 
-class OptAppRunFileWrongStructureException(Exception):
+class DriftAIRunFileWrongStructureException(Exception):
     def __init___(self):
         Exception.__init__(self, "Wrong run file structure")
 
 
-class OptAppRunFileDoesNotExistException(Exception):
+class DriftAIRunFileDoesNotExistException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self, "Run file does not exist: {}".format(dErrorArgument1))
 
 
-class OptAppInstanceExistsException(Exception):
+class DriftAIInstanceExistsException(Exception):
     def __init___(self, dErrorArgument1):
         Exception.__init__(
             self, "{} Instance already exists".format(dErrorArgument1))
 
 
-class OptAppInvalidStructureException(Exception):
+class DriftAIInvalidStructureException(Exception):
     def __init___(self):
         Exception.__init__(self, "Invalid instance database structure")

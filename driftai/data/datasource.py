@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 
-from driftai.exceptions import OptAppFileDatasourceNotCompatibeException, OptAppMethodNotImplementedYetException
+from driftai.exceptions import DriftAIFileDatasourceNotCompatibeException, DriftAIMethodNotImplementedYetException
 from driftai.utils import filepath_to_uri, uri_to_filepath, check_uri, get_file_extension, compile_path_pattern, import_from
 
 class Datasource(ABC):
@@ -176,18 +176,18 @@ class FileDatasource(Datasource):
 
         Raises
         ------
-        OptAppFileDatasourceNotCompatibeException
+        DriftAIFileDatasourceNotCompatibeException
             If file extension is not compatible with DriftAI
         """
         compatible_extensions = ["csv"]
         file_ext = get_file_extension(self.datasource)
         if file_ext == None:
-            raise OptAppFileDatasourceNotCompatibeException(self.datasource)
+            raise DriftAIFileDatasourceNotCompatibeException(self.datasource)
 
         if file_ext in compatible_extensions:
             self.data = self._load_csv()
         else:
-            raise OptAppFileDatasourceNotCompatibeException(file_ext)
+            raise DriftAIFileDatasourceNotCompatibeException(file_ext)
         return self.data
 
     def _load_csv(self, has_label=True):

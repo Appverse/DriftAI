@@ -1,6 +1,6 @@
-=======================================================
+========================================================
 Using driftai to train a classifier on the MNIST dataset
-=======================================================
+========================================================
 
 In the Iris dataset example we have seen how to use driftai client to train a classifier over the Iris dataset. One of the benefits of driftai is that it has been designed to let the programmer to use its API to build its own scripts. This way, using the API, the programmer can automate the execution and extend driftai features programatically.
 
@@ -26,7 +26,7 @@ Then run :
 This script will download data from the The MNIST Database (http://yann.lecun.com/exdb/mnist/index.html) and generate a tree source with the data. This tree source has to main folders (tain and test) and in each folder has a set of images. Each image has an idetifier with the following shape: <img_label>_<img_id>.png, where <img_label> is the label of the image  and <img_id> is an autonumeric index starting from 0 for each image label. As an example, we can find train/0_0.png which is the first 0 labelled image, and we can also find train/1_0.png or train/0_100.png.
 
 Create the driftai script
-------------------------
+-------------------------
 
 After having driftai installed and having downloaded MNIST data, all the needed material is a code editor.
 

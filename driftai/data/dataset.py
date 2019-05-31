@@ -11,10 +11,10 @@ from .datasource import Datasource, FileDatasource, ImageDatasource
 from driftai.utils import uri_to_filepath, maybe_make_dir, str_to_date, import_from
 from driftai.db import Persistent, Collections
 
-from driftai.exceptions import OptAppInvalidStructureException, \
-                              OptAppInstanceExistsException, \
-                              OptAppMethodNotImplementedYetException, \
-                              OptAppInvalidStructureException
+from driftai.exceptions import DriftAIInvalidStructureException, \
+                              DriftAIInstanceExistsException, \
+                              DriftAIMethodNotImplementedYetException, \
+                              DriftAIInvalidStructureException
 
 
 class Dataset(Persistent):
@@ -43,7 +43,7 @@ class Dataset(Persistent):
         self.creation_date = str_to_date(creation_date) or datetime.now()
         self._id = id or self._get_id()
         if creation_date is None and Dataset.collection().exists(self.id):
-            raise OptAppInstanceExistsException("Dataset")
+            raise DriftAIInstanceExistsException("Dataset")
 
     @property
     def id(self):
@@ -157,7 +157,7 @@ class Dataset(Persistent):
 
         Raises
         ------
-        OptAppInvalidStructureException
+        DriftAIInvalidStructureException
             In case file keys are incorrect
 
         Returns
@@ -174,7 +174,7 @@ class Dataset(Persistent):
             data["datasource"] = Datasource.load_from_data(data["datasource"])
             return cls(**data)
         else:
-            raise OptAppInvalidStructureException()
+            raise DriftAIInvalidStructureException()
 
     def get_info(self):
         """
@@ -278,7 +278,7 @@ class SubDataset(Persistent):
         self._id = id or self._get_id()
 
         if creation_date is None and SubDataset.collection().exists(self.id):
-            raise OptAppInstanceExistsException("SubDataset")
+            raise DriftAIInstanceExistsException("SubDataset")
 
 
     @property
@@ -308,7 +308,7 @@ class SubDataset(Persistent):
 
         Raises
         ------
-        OptAppSubDatasetInfoFileWrongStructureException
+        DriftAISubDatasetInfoFileWrongStructureException
             If data has worng keys
 
         Returns
@@ -326,7 +326,7 @@ class SubDataset(Persistent):
             data["dataset"] = Dataset.load(data["dataset"])
             return cls(**data)
         else:
-            raise OptAppInvalidStructureException()
+            raise DriftAIInvalidStructureException()
 
     def _get_id(self):
         return self.dataset.id + "_" + self.method + "_" + str(self.by)
@@ -353,7 +353,7 @@ class SubDataset(Persistent):
         # elif method == "bootstrap":
 
         else:
-            raise OptAppMethodNotImplementedYetException()
+            raise DriftAIMethodNotImplementedYetException()
 
         return {"method": method, "sets": sets}
 
