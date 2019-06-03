@@ -7,7 +7,7 @@ In the Iris dataset example we have seen how to use driftai client to train a cl
 
 DriftAI has a series of benefits on how to organise and run Machine Learning worflows. This example shows how driftai can be used to train a classifier on the MNIST dataset.
 
-This tutorial asumes that the programmer (you, for example) has already installed driftai in her machine. We also asume that the programmer has downladed driftai somewhere in its local drive and the path is in `$OPTAPP_HOME` in the environment variable and that you have a `OPTAPP_HOME` home in the script we are going to write.
+This tutorial asumes that the programmer (you, for example) has already installed driftai in her machine. We also asume that the programmer has downladed driftai somewhere in its local drive and the path is in `$DRIFTAI_HOME` in the environment variable and that you have a `DRIFTAI_HOME` home in the script we are going to write.
 
 
 Before we start trainig models we will download the MNIST dataset and store it as a valid driftai format.
@@ -17,7 +17,7 @@ Download the data
 
 To download the MNIST dataset, first copy the downloader to the current directory:
 
-``cp %OPTAPP_HOME%/examples/download_mnist.py .``
+``cp %DRIFTAI_HOME%/examples/download_mnist.py .``
 
 Then run :
 
@@ -80,7 +80,7 @@ Once we have a project defined, we have to create a `Dataset`. As we have downlo
 
 .. code-block:: python
 
-    ds = Dataset.from_dir("{}/mnist_data".format(OPTAPP_HOME),
+    ds = Dataset.from_dir("{}/mnist_data".format(DRIFTAI_HOME),
                           datatype='img')
 
 +------------------------------------------------------------------+

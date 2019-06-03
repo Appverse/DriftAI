@@ -45,7 +45,7 @@ Download the data
 
 To download the Iris dataset first copy the downloader to the current directory:
 
-``cp %OPTAPP_HOME%/examples/download_iris.py .`` 
+``cp %DRIFTAI_HOME%/examples/download_iris.py .`` 
 
 Then run :
 
