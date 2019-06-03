@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 from driftai.utils import check_uri, compile_path_pattern
-from test import testenv
+import testenv
 
 class UtilsTest(unittest.TestCase):
     def test_check_false_uri(self):

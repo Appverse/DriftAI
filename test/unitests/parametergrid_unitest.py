@@ -4,7 +4,6 @@ import re
 from pathlib import Path
 
 from driftai.parameters import ParameterGrid, FloatParameter, BoolParameter
-from test import testenv
 
 class ParameterGridTest(unittest.TestCase):
     def setUp(self):

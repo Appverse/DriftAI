@@ -9,7 +9,7 @@ from driftai.result_report import ResultReport, recall, precision, f1
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 
-from test import testenv
+import testenv
 
 class ResultReportTest(unittest.TestCase):
     def setUp(self):
@@ -38,7 +38,7 @@ class ResultReportTest(unittest.TestCase):
         self.approach.save()
 
         # generate runs
-        import_from("test.lr.logistic_regression", "LogisticRegressionApproach")().run()
+        import_from("lr.logistic_regression", "LogisticRegressionApproach")().run()
 
     def tearDown(self):
         testenv.delete_mock_projects()

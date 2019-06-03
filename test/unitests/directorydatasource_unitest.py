@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from driftai.data import ImageDatasource
-from test import testenv
+import testenv
 
 # class DirectoryDatasourceTest(unittest.TestCase):
 #     def test_directory_dataset(self):

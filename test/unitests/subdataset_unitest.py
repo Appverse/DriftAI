@@ -8,7 +8,7 @@ from driftai.data import Dataset, SubDataset
 from driftai.project import Project
 from driftai.run import Run, RunGenerator
 
-from test import testenv
+import testenv
 
 class SubDatasetTest(unittest.TestCase):
     def setUp(self):
