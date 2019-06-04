@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 from driftai.data.datasource import FileDatasource
-from test import testenv
+import testenv
 
 class FileDatasourceTest(unittest.TestCase):
     def setUp(self):

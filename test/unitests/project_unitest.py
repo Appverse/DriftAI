@@ -9,9 +9,9 @@ from driftai.run import RunGenerator
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 from driftai import set_project_path
-from driftai.exceptions import DriftAIProjectNameExistsException
+# from driftai.exceptions import DriftAIProjectNameExistsException
 
-from test import testenv
+import testenv
 
 
 class ProjectTest(unittest.TestCase):
@@ -83,35 +83,36 @@ class ProjectTest(unittest.TestCase):
         self.assertEqual(p1.path, str(path_to_noname_project1))
         self.assertEqual(p2.path, str(path_to_noname_project2))
 
-    def test_create_the_same_project_twice(self):
-        """
-        Creates a new Project given a path to the local file system without the project name and then creates a new
-        Project with the same name. The expected behaviour is that the second project creation raises and Exception.
-        
-        Asserts
-        -------
-            - The first project path is created using the default name when no name is provided
-            - The second project generates an Exception
-        """
-        p1 = Project(path=self.path_to_test_dir)
-        with self.assertRaises(DriftAIProjectNameExistsException):
-            Project(path=self.path_to_test_dir, name=p1.name)
 
-    def test_create_two_projects_with_same_name(self):
-        """
-        Creates a new Project given a path to the local file system and then creates a new
-        Project with the same name. The expected behaviour is that the second project creation raises and Exception.
-        
-        Asserts
-        -------
-            - The first project path is created
-            - The second project generates an Exception
-        """
-        set_project_path(testenv.MOCK_PROJECT_PATH)
-
-        p1 = Project(path=self.path_to_test_dir, name=self.project_name)
-        with self.assertRaises(DriftAIProjectNameExistsException):
-            Project(path=self.path_to_test_dir, name=p1.name)
+    # def test_create_the_same_project_twice(self):
+    #     """
+    #     Creates a new Project given a path to the local file system without the project name and then creates a new
+    #     Project with the same name. The expected behaviour is that the second project creation raises and Exception.
+    #
+    #     Asserts
+    #     -------
+    #         - The first project path is created using the default name when no name is provided
+    #         - The second project generates an Exception
+    #     """
+    #     p1 = Project(path=self.path_to_test_dir)
+    #     with self.assertRaises(DriftAIProjectNameExistsException):
+    #         Project(path=self.path_to_test_dir, name=p1.name)
+    #
+    # def test_create_two_projects_with_same_name(self):
+    #     """
+    #     Creates a new Project given a path to the local file system and then creates a new
+    #     Project with the same name. The expected behaviour is that the second project creation raises and Exception.
+    #
+    #     Asserts
+    #     -------
+    #         - The first project path is created
+    #         - The second project generates an Exception
+    #     """
+    #     set_project_path(testenv.MOCK_PROJECT_PATH)
+    #
+    #     p1 = Project(path=self.path_to_test_dir, name=self.project_name)
+    #     with self.assertRaises(DriftAIProjectNameExistsException):
+    #         Project(path=self.path_to_test_dir, name=p1.name)
 
     def test_load_project(self):
         """

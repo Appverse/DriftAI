@@ -9,7 +9,7 @@ from driftai.result_report import ResultReport, multiclass_recall, multiclass_pr
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 
-from test import testenv
+import testenv
 
 class MulticlassResultReportTest(unittest.TestCase):
     def setUp(self):
@@ -38,7 +38,7 @@ class MulticlassResultReportTest(unittest.TestCase):
         self.approach.save()
 
         # generate runs
-        import_from("test.dt.decision_tree", "DecisionTreeApproach")().run()
+        import_from("dt.decision_tree", "DecisionTreeApproach")().run()
 
     def tearDown(self):
         testenv.delete_mock_projects()

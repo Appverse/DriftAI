@@ -3,7 +3,7 @@ import shutil
 import re
 from pathlib import Path
 
-from test import testenv
+import testenv
 from driftai.run import ParameterGrid, RunGenerator
 from driftai import Approach, Project, set_project_path
 from driftai.data import Dataset, SubDataset
@@ -31,7 +31,7 @@ class RunGeneratorTest(unittest.TestCase):
 
     def test_generate_runs_from_subdataset(self):
         # Trick to load runnable approach
-        LogisticRegressionApproach = import_from("test.lr.logistic_regression", "LogisticRegressionApproach")
+        LogisticRegressionApproach = import_from("lr.logistic_regression", "LogisticRegressionApproach")
         ra = LogisticRegressionApproach()
         
         # Generate the runs

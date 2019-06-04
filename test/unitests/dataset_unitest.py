@@ -9,7 +9,7 @@ from driftai.project import Project
 from driftai.db import DatabaseInjector
 
 from tinydb import where
-from test import testenv
+import testenv
 
 class DatasetTest(unittest.TestCase):
     def setUp(self):
@@ -126,17 +126,17 @@ class DatasetTest(unittest.TestCase):
 
     def test_automatically_detect_clf(self):
         Project(name=self.aux_project_name, path=self.path_to_test_dir)
-        ds = Dataset.read_file("test/resources/Iris.csv")
+        ds = Dataset.read_file(str(Path(testenv._RESOURCES_PATH, "Iris.csv")))
         self.assertEqual(ds.problem_type, "clf")
 
     def test_automatically_detect_binary_clf(self):
         Project(name=self.aux_project_name, path=self.path_to_test_dir)
-        ds = Dataset.read_file("test/resources/titanic.csv", label="Survived")
+        ds = Dataset.read_file(str(Path(testenv._RESOURCES_PATH, "titanic.csv")), label="Survived")
         self.assertEqual(ds.problem_type, "binary_clf")
 
     def test_automatically_detect_regression(self):
         Project(name=self.aux_project_name, path=self.path_to_test_dir)
-        ds = Dataset.read_file("test/resources/housing.csv", label="median_house_value")
+        ds = Dataset.read_file(str(Path(testenv._RESOURCES_PATH, "housing.csv")), label="median_house_value")
         self.assertEqual(ds.problem_type, "regression")
 
     def test_directory_dataset(self):

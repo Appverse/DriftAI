@@ -5,6 +5,7 @@ from driftai.data import Dataset, SubDataset
 from driftai.run import RunGenerator
 from driftai.result_report import ResultReport, precision, recall
 from driftai import Approach, Project
+from test import testenv
 
 def clean(project):
     shutil.rmtree(project.path)
@@ -22,9 +23,9 @@ if project_path.is_dir():
 proj = Project(name="test_project", path=path_to_project)
 
 # add a datasource
-path_to_dataset = str(Path(r"./test/resources/test_dataset.csv").absolute())
+path_to_dataset = str(Path(testenv._RESOURCES_PATH, "test_dataset.csv"))
 ds = Dataset.read_file(path_to_dataset)
-ds.set_project_path(proj.path)
+# ds.set_project_path(proj.path)
 ds.save()
 
 # create subdataset
@@ -32,7 +33,7 @@ sbds = SubDataset(ds, method="k_fold", by=5)
 sbds.save()
 
 # set apporach
-example_approach_path = r"./test/resources/approach_example.py"
+example_approach_path = str(Path(testenv._RESOURCES_PATH, "approach_example.py"))
 param_path = r"./test/resources/parameters_example.yml"
 a = Approach(proj, "approach_example", sbds)
 shutil.copyfile(example_approach_path, str(a.script_path))
