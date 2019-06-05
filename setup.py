@@ -10,7 +10,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    python_requires='>=3.6, <4',
+    python_requires='>=3.5, <4',
     install_requires=[
         'numpy', 
         'pandas', 
