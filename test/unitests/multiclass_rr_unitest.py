@@ -9,7 +9,7 @@ from driftai.result_report import ResultReport, multiclass_recall, multiclass_pr
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 
-import testenv
+from test import testenv
 
 class MulticlassResultReportTest(unittest.TestCase):
     def setUp(self):

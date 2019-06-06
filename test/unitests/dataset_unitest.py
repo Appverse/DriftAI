@@ -9,7 +9,7 @@ from driftai.project import Project
 from driftai.db import DatabaseInjector
 
 from tinydb import where
-import testenv
+from test import testenv
 
 class DatasetTest(unittest.TestCase):
     def setUp(self):

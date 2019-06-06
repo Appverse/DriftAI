@@ -3,7 +3,7 @@ import shutil
 import re
 from pathlib import Path
 
-import testenv
+from test import testenv
 from driftai.run import ParameterGrid, RunGenerator
 from driftai import Approach, Project, set_project_path
 from driftai.data import Dataset, SubDataset

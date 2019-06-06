@@ -5,7 +5,7 @@ from driftai.db import Database, DatabaseInjector
 
 ROOT_PROJECT_PATH = str(Path("../../").absolute())
 TEST_PATH = str(Path("").absolute())
-_RESOURCES_PATH = Path(TEST_PATH, "../resources")
+_RESOURCES_PATH = Path(TEST_PATH, "test/resources")
 
 MOCK_DATASET = str(Path(_RESOURCES_PATH, "test_dataset.csv"))
 IRIS_DATASET = str(Path(_RESOURCES_PATH, "Iris.csv"))

@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 import shutil
 
-import testenv
+from test import testenv
 
 from driftai import set_project_path
 from driftai.data import SubDataset, Dataset

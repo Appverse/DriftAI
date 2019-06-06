@@ -7,7 +7,7 @@ from driftai.run import Run, RunPool
 from driftai.data import Dataset, SubDataset
 from driftai import Approach, Project, set_project_path
 
-import testenv
+from test import testenv
 
 class RunTest(unittest.TestCase):
     def setUp(self):

@@ -9,7 +9,7 @@ from driftai.result_report import ResultReport, recall, precision, f1
 from driftai import Approach, Project, set_project_path
 from driftai.utils import import_from
 
-import testenv
+from test import testenv
 
 class ResultReportTest(unittest.TestCase):
     def setUp(self):

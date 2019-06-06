@@ -117,6 +117,5 @@ $ cd docs && make html
 Run all unitests using the following command:
 
 ```
-$ cd test/unitests
-$ python  -m unittest *.py
+$ python  -m unittest test/unitests/*.py
 ```

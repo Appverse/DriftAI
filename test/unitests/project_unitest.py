@@ -11,7 +11,7 @@ from driftai.utils import import_from
 from driftai import set_project_path
 # from driftai.exceptions import DriftAIProjectNameExistsException
 
-import testenv
+from test import testenv
 
 
 class ProjectTest(unittest.TestCase):
