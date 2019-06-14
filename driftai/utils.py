@@ -346,3 +346,12 @@ def to_camel_case(str_name, separator_values=['-', '_']):
         camel_case = camel_case.replace(sep, " ")
 
     return camel_case.title().replace(" ", "")
+
+class SingletonDecorator(object):
+    def __init__(self,klass):
+        self.klass = klass
+        self.instance = None
+    def __call__(self,*args,**kwds):
+        if self.instance == None:
+            self.instance = self.klass(*args,**kwds)
+        return self.instance
