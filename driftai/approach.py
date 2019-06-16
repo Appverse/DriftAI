@@ -21,11 +21,10 @@ class Approach(Persistent):
     """
     
     _EMPTY_APPROACH = """
-from driftai import RunnableApproach
-from driftai.run import single_run
+import driftai as dai
 
-@single_run
-class {}Approach(RunnableApproach):
+{runner_decorator}
+class {id}Approach(dai.RunnableApproach):
 
     @property
     def parameters(self):
@@ -104,7 +103,9 @@ class {}Approach(RunnableApproach):
         # Create script
         if not self.script_path.exists():
             with self.script_path.open("w") as f:
-                f.write(Approach._EMPTY_APPROACH.format(to_camel_case(self.id)))
+                f.write(Approach._EMPTY_APPROACH
+                            .format(id=to_camel_case(self.id),
+                                    runner_decorator='@dai.run.single_run'))
 
     @classmethod
     def load_from_data(cls, data):

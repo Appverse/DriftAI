@@ -15,7 +15,7 @@ from driftai.utils import import_from, to_camel_case
 @click.group()
 def main():
     """
-    Simple CLI for OptAPP
+    Simple CLI for DriftAI
     """    
     sys.path.append(str(Path('.').absolute()))
 
@@ -90,12 +90,22 @@ def generate_subdataset(dataset, method, by):
     print("Subdataset with id {} created".format(sbds.id))
 
 
-def generate_approach(identifier, subdataset_id):
-    a = Approach(
-        project=Project.load(),
-        name=identifier,
-        subdataset=SubDataset.load(subdataset_id))
-    a.save()
+def generate_approach(identifier, subdataset_id, inside_project):
+    if inside_project and not subdataset_id:
+        print('Error: To create an approach you must specify a subdataset using the option --subdataset')
+        return
+
+    if inside_project:
+        a = Approach(project=Project.load(),
+                     name=identifier,
+                     subdataset=SubDataset.load(subdataset_id))
+        a.save()
+    else:
+        with Path(identifier + '.py').open("w") as f:
+            f.write(Approach._EMPTY_APPROACH
+                            .format(id=to_camel_case(identifier),
+                                    runner_decorator=''))
+
 
 
 @main.command()
@@ -104,6 +114,7 @@ def generate_approach(identifier, subdataset_id):
 @click.option(
     "--subdataset",
     "-s",
+    default='',
     help="In case item=approach. ID of the subdataset where approach will retrieve the data")
 @click.option("--method", "-m", type=click.Choice(['k_fold', 'train_test']))
 @click.option(
@@ -114,14 +125,27 @@ def generate_approach(identifier, subdataset_id):
     "--dataset",
     "-d",
     help="ID of the dataset which new subdataset will be generated from")
-def generate(item, identifier, subdataset, method, by, dataset):
-    if not _is_running_in_project():
+@click.option(
+    '--project/--no-project',
+    default=True,
+    help='Create approach script inside a project or not?')
+def generate(item, 
+             identifier, 
+             subdataset, 
+             method, 
+             by, 
+             dataset,
+             project):
+    if project and not _is_running_in_project():
         print("You must use driftai CLI inside an driftai project directory")
         return
 
     generators = {
         "subdataset": partial(generate_subdataset, identifier, method, by),
-        "approach": partial(generate_approach, identifier, subdataset)
+        "approach": partial(generate_approach, 
+                            identifier, 
+                            subdataset, 
+                            project)
     }
     generators[item]()
 
