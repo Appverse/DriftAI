@@ -8,6 +8,7 @@ from pathlib import Path
 from abc import abstractmethod, ABC, abstractproperty
 
 from driftai.utils import maybe_make_dir, str_to_date, to_camel_case
+from driftai.logger import DriftAILogger
 from driftai.db import Persistent
 from driftai.data import SubDataset
 from driftai.run import Run
@@ -222,8 +223,8 @@ class RunnableApproach(ABC):
     """
     def __init__(self, **kwargs):
         self.runner = kwargs["runner"]
-
-        print("Loading approach data")
+        self.logger = DriftAILogger()
+        self.logger.info("Loading approach data")
         self.approach = Approach.load(self._get_approach_id_from_class())
     
     def run(self, resume=False):

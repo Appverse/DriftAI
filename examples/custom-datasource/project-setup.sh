@@ -3,7 +3,7 @@ wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 mkdir data/CIFAR-10 -p
 tar xvzf cifar-10-python.tar.gz -C data/CIFAR-10/
 rm cifar-10-python.tar.gz
-# python unpickle_cifar10.py
+python unpickle_cifar10.py
 
 # Create driftai project
 dai new cifar-10-project

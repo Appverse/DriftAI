@@ -5,10 +5,14 @@ import warnings
 from .run_manage import RunPool, RunGenerator
 from driftai.result_report import Result
 from driftai.utils import print_progress_bar
+from driftai.logger import DriftAILogger
 
 import numpy as np
 
 class AbstractRunner(ABC):
+    def __init__(self):
+        self.logger = DriftAILogger()
+
     @abstractmethod
     def run(self, approach, resume=False):
         """
@@ -24,19 +28,19 @@ class SingleRunner(AbstractRunner):
     def _load_runs(self, runnable_approach, resume):
         if not resume:
             # Remove old runs
-            print("Removing previous runs...")
+            self.logger.info("Removing previous runs...")
             runnable_approach.approach.runs.clear()
             runnable_approach.approach.update()
             
-            print("Generating runs...")
+            self.logger.info("Generating runs...")
             runs = RunGenerator.from_runnable_approach(runnable_approach)
             runnable_approach.approach.runs = runs
 
-            print("Saving new runs...")
+            self.logger.info("Saving new runs...")
             runnable_approach.approach.update()
         else: 
-            print("Resuming runs...")
-            print("Reading runs...")
+            self.logger.info("Resuming runs...")
+            self.logger.debug("Reading runs...")
             runs = runnable_approach.approach.runs
         return runs
 
@@ -45,7 +49,7 @@ class SingleRunner(AbstractRunner):
         runs = self._load_runs(runnable_approach, resume)
 
         if len(runs) == 0:
-            print("Cannot load runs. Did you generated them?")
+            self.logger.warning("Cannot load runs. Did you generated them?")
             return
 
         # Count finished and left runs
@@ -54,10 +58,14 @@ class SingleRunner(AbstractRunner):
 
         # If resume is True and there aren't runs to run warn the user
         if resume and n_left_runs == 0:
-            warnings.warn("All runs are finished. Regenerate the runs or run with resume=False")
+            self.logger.warning("All runs are finished. Regenerate the runs or run with resume=False")
             return
 
-        print("Running...")
+        self.logger.info("Running...")
+        
+        # Print on 10% completition
+        log_every = (len(runs) * 10) // 100
+
         print_progress_bar(n_done_runs, len(runs))
         
         # Execute the runs
@@ -85,6 +93,10 @@ class SingleRunner(AbstractRunner):
             # Update the progress bar
             n_done_runs += 1
             print_progress_bar(n_done_runs, len(runs))
+            
+            if n_done_runs % log_every == 0:
+                self.logger.debug('{}/{} runs executed.'.format(n_done_runs, len(runs)))
+
 
 class DaskRunner(AbstractRunner):
     """
