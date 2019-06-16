@@ -11,6 +11,8 @@ from driftai.result_report.metrics import *
 
 from driftai.run import RunGenerator
 from driftai.utils import import_from, to_camel_case
+from driftai.logger import DriftAILogger
+
 
 @click.group()
 def main():
@@ -31,7 +33,7 @@ def new(project_name):
     Creates the directory tree for a new driftai project
     """
     if Path(project_name).is_dir():
-        print("Project already exists")
+        logger.error("Project already exists")
         click.Abort()
         return
 
@@ -55,12 +57,12 @@ def new(project_name):
 def add(item, path, heading, label, parsing_pattern, datatype):
 
     if not _is_running_in_project():
-        print("You must use driftai CLI inside an driftai project directory")
+        logger.error("You must use driftai CLI inside an driftai project directory")
         return
 
     if item == "dataset":
         if path is None:
-            print("You must provide a path with -p or --path option")
+            logger.error("You must provide a path with -p or --path option")
             click.Abort()
             return
         
@@ -75,7 +77,7 @@ def add(item, path, heading, label, parsing_pattern, datatype):
 
         ds = factory_fn(path=str(path_to_dataset))
         ds.save()
-        print("Dataset with id {} created".format(ds.id))
+        logger.info("Dataset with id {} created".format(ds.id))
 
 
 def generate_subdataset(dataset, method, by):
@@ -87,12 +89,12 @@ def generate_subdataset(dataset, method, by):
     by = parse_by(method, by)
     sbds = SubDataset(dataset=Dataset.load(dataset), method=method, by=by)
     sbds.save()
-    print("Subdataset with id {} created".format(sbds.id))
+    logger.info("Subdataset with id {} created".format(sbds.id))
 
 
 def generate_approach(identifier, subdataset_id, inside_project):
     if inside_project and not subdataset_id:
-        print('Error: To create an approach you must specify a subdataset using the option --subdataset')
+        logger.error('To create an approach you must specify a subdataset using the option --subdataset')
         return
 
     if inside_project:
@@ -100,12 +102,13 @@ def generate_approach(identifier, subdataset_id, inside_project):
                      name=identifier,
                      subdataset=SubDataset.load(subdataset_id))
         a.save()
+        logger.info('Approach with id {} created'
+                        .format(identifier))
     else:
         with Path(identifier + '.py').open("w") as f:
             f.write(Approach._EMPTY_APPROACH
                             .format(id=to_camel_case(identifier),
                                     runner_decorator=''))
-
 
 
 @main.command()
@@ -137,7 +140,7 @@ def generate(item,
              dataset,
              project):
     if project and not _is_running_in_project():
-        print("You must use driftai CLI inside an driftai project directory")
+        logger.error("You must use driftai CLI inside an driftai project directory")
         return
 
     generators = {
@@ -154,15 +157,15 @@ def generate(item,
 @click.argument("approach_id")
 def status(approach_id):
     if not _is_running_in_project():
-        print("You must use driftai CLI inside an driftai project directory")
+        logger.error("You must use driftai CLI inside an driftai project directory")
         return
-    print("Loading approach data...")
+    logger.debug("Loading approach data...")
     stat = Approach.load(approach_id).status
     if not stat["done"]:
-        print("Approach {} is still running".format(approach_id))
-        print(stat["progress_bar"] + " Done runs: " + str(stat["done_runs"]) + " Total runs: " + str(stat["total_runs"]))
+        logger.info("Approach {} is still running".format(approach_id))
+        logger.info(stat["progress_bar"] + " Done runs: " + str(stat["done_runs"]) + " Total runs: " + str(stat["total_runs"]))
     else:
-        print("There are no left runs for Approach {approach_id}!".format(approach_id))
+        logger.info("There are no left runs for Approach {approach_id}!".format(approach_id))
 
 
 @main.command()
@@ -170,10 +173,10 @@ def status(approach_id):
 @click.option('--resume/--no-resume', default="False", help="Resume the last execution?")
 def run(approach_id, resume):
     if not _is_running_in_project():
-        print("You must use driftai CLI inside an driftai project directory")
+        logger.error("You must use driftai CLI inside an driftai project directory")
         return
     if not Approach.collection().exists(approach_id):
-        print("Approach with id {} does not exist.".format(approach_id))
+        logger.error("Approach with id {} does not exist.".format(approach_id))
         return
 
     sys.path.append(Project.load().path)
@@ -191,16 +194,20 @@ def run(approach_id, resume):
               type=click.Choice(list(str_to_metric_fn.keys())))
 def evaluate(approach_id, metric):
     if not _is_running_in_project():
-        print("You must use driftai CLI inside an driftai project directory")
+        logger.error("You must use driftai CLI inside an driftai project directory")
         return
     if not Approach.collection().exists(approach_id):
-        print("Approach with id {} does not exist.".format(approach_id))
+        logger.error("Approach with id {} does not exist.".format(approach_id))
         return
 
     approach = Approach.load(approach_id)
     r = ResultReport(approach=approach, metrics=[str_to_metric_fn[m] for m in metric])
     r.as_dataframe()\
         .to_csv(approach_id + "_evaluation.csv", index=False)       
+
+
+logger = DriftAILogger()
+logger.level = 10 # Debug
 
 
 if __name__ == "__main__":
