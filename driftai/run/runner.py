@@ -65,6 +65,7 @@ class SingleRunner(AbstractRunner):
         
         # Print on 10% completition
         log_every = (len(runs) * 10) // 100
+        log_every = log_every or 1
 
         print_progress_bar(n_done_runs, len(runs))
         
