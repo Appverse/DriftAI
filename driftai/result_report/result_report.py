@@ -41,11 +41,12 @@ class ResultReport(object):
         # Calculate the metrics with the results of the current run
         eval_data = self._get_eval_data()
         eval_data_metrics = []
-        for metric in self.metrics:
-            for run in eval_data:
+        for run in eval_data:
+            for metric in self.metrics:
                 metric_eval = metric(run["y_true"], run["y_pred"])
                 run[metric.__name__] = metric_eval
-                eval_data_metrics.append(run)
+                
+            eval_data_metrics.append(run)
         return eval_data_metrics
 
     def as_dataframe(self):
